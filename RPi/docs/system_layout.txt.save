@@ -1,0 +1,23 @@
+SYSTEM LAYOUT FOR LAZER MAZE RPi INTERFACE
+
+Functions:
+- Connect to Android tablet for User Interface
+- Control lazer power supply on/off
+- Control servos for lazer motion
+- Get photodiode input
+
+Structure:
+- Set of python scripts called by a bash script on startup
+	* android_connection.py (LIB)
+	* input_control.py (MAIN)
+	* start_lazer_maze.bash
+
+Android Connection:
+- Send and revieve data over usb serial or wifi socket
+- Send UI updates
+- Get user input
+
+Input and Control:
+- Get GPIO photodiode input
+- Send GPIO lazer control output
+- Send game states to Android Connection
