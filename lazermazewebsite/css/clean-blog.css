@@ -11,10 +11,7 @@ body {
 }
 p {
   line-height: 1.5;
-  margin: 30px 0;
-}
-p a {
-  text-decoration: underline;
+  margin: 10px 0;
 }
 h1,
 h2,
@@ -22,13 +19,17 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
+  margin-bottom: 0;
 }
 a {
   color: #404040;
 }
-a:hover,
+a:hover {
+  text-decoration: none;
+  color: #dbb207;
+}
 a:focus {
   color: #0085a1;
 }
@@ -52,7 +53,7 @@ hr.small {
   left: 0;
   width: 100%;
   z-index: 3;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
@@ -169,7 +170,7 @@ hr.small {
   font-size: 24px;
   line-height: 1.1;
   display: block;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   margin: 10px 0 0;
 }
@@ -188,7 +189,7 @@ hr.small {
   display: block;
 }
 .intro-header .post-heading .subheading {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 24px;
   margin: 10px 0 30px;
   font-weight: 600;
@@ -216,7 +217,7 @@ hr.small {
 .post-preview > a:hover,
 .post-preview > a:focus {
   text-decoration: none;
-  color: #0085a1;
+  color: #dbb207;
 }
 .post-preview > a > .post-title {
   font-size: 30px;
@@ -240,7 +241,7 @@ hr.small {
 }
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
-  color: #0085a1;
+  color: #dbb207;
   text-decoration: underline;
 }
 @media only screen and (min-width: 768px) {
@@ -326,7 +327,7 @@ form .row:first-child .floating-label-form-group {
   border-top: 1px solid #eeeeee;
 }
 .btn {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -349,7 +350,7 @@ form .row:first-child .floating-label-form-group {
 }
 .pager li > a,
 .pager li > span {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -392,4 +393,17 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #0085a1;
+}
+
+.image-cropper {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+.container {
+  padding-bottom: 20px;
 }
