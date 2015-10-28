@@ -1,4 +1,4 @@
-!#/usr/local/bin/python
+#!/usr/local/bin/python
 
 """
 android_connection.py
