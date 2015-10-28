@@ -24,6 +24,7 @@ pc4Pin = 7
 
 # GPIO setup
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 # Servos
 GPIO.setup(servo1Pin, GPIO.OUT)
 GPIO.setup(servo2Pin, GPIO.OUT)
@@ -72,6 +73,7 @@ def game(level):
 		if brokenLaser == True:
 			# TODO: Record finish time, score
 			# TODO: End game flask message
+			pass
 
 # Main Loop
 def main():
@@ -80,6 +82,8 @@ def main():
 	while(1):
 		# Check flask input
 		# TODO: Get flask states and input
+		levelInput = False # TEMP: Getting rid of errors
+		startGame = False # TEMP: Getting rid of errors		
 		if levelInput == True:
 			level = newLevel
 		if startGame == True:
