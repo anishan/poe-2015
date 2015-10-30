@@ -85,7 +85,7 @@ def main():
 		levelInput = False # TEMP: Getting rid of errors
 		startGame = False # TEMP: Getting rid of errors		
 		if levelInput == True:
-			level = newLevel
+			level = levelInput
 		if startGame == True:
 			game(level)
 
