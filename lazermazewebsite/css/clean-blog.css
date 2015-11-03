@@ -5,20 +5,22 @@
  */
 @font-face {
     font-family: RODUSround700;
-    src: url(fonts/RODUS/RODUSround700.otf);
+    src: url(fonts/RODUS/rodusround700-webfont.woff);
 }
 @font-face {
     font-family: RODUSround500;
-    src: url(fonts/RODUS/RODUSround500.otf);
+    src: url(fonts/RODUS/rodusround500-webfont.woff);
 }
 @font-face {
     font-family: DINOT;
     src: url(fonts/DINOT/DINOT.otf);
 }
 
+@import url('http://fonts.googleapis.com/css?family=Bitter');
+
 body {
   /*font-family: 'Lora', 'Times New Roman', serif;*/
-  font-family: DINOT;
+  font-family: Bitter;
   font-size: 20px;
   color: #404040;
 }
@@ -206,14 +208,14 @@ hr.small {
 }
 .intro-header .post-heading .subheading {
   /*font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-  font-family: DINOT;
+  font-family: Bitter;
   font-size: 24px;
   margin: 10px 0 30px;
   font-weight: 600;
 }
 .intro-header .post-heading .meta {
   /*font-family: 'Lora', 'Times New Roman', serif;*/
-  font-family: DINOT;
+  font-family: Bitter;
   font-style: italic;
   font-weight: 300;
   font-size: 20px;
@@ -244,7 +246,7 @@ hr.small {
 }
 .post-preview > a > .post-subtitle {
   margin: 0;
-  font-family: DINOT;
+  font-family: Bitter;
   font-style: italic;
   font-weight: 300;
   margin-bottom: 10px;
