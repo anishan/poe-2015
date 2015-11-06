@@ -1,0 +1,21 @@
+/*!
+ * Clean Blog v1.0.0 (http://startbootstrap.com)
+ * Copyright 2014 Start Bootstrap
+ * Licensed under Apache 2.0 (https://github.com/IronSummitMedia/startbootstrap/blob/gh-pages/LICENSE)
+ */
+@font-face {
+    font-family: 'RODUSround700';
+    src: url(rodusround700.otf) format('opentype'),
+         url(rodusround700-webfont.woff) format('woff'),
+         url(rodusround700-webfont.eot) format('embedded-opentype'),
+         url(rodusround700-webfont.svg) format('svg');
+}
+@font-face {
+    font-family: 'RODUSround500';
+    src: url(rodusround500.otf) format('opentype'),
+         url(rodusround500-webfont.woff) format('woff'),
+         url(rodusround500-webfont.eot) format('embedded-opentype'),
+         url(rodusround500-webfont.svg) format('svg');
+}
+@import url('http://fonts.googleapis.com/css?family=Bitter');
+@import url('http://fonts.googleapis.com/css?family=Aldrich');
