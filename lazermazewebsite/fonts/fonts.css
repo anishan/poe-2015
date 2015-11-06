@@ -5,16 +5,17 @@
  */
 @font-face {
     font-family: 'RODUSround700';
-    src: url(RODUS/rodusround700.otf) format('opentype'),
-         url(RODUS/rodusround700-webfont.woff) format('woff'),
-         url(RODUS/rodusround700-webfont.eot) format('embedded-opentype'),
-         url(RODUS/rodusround700-webfont.svg) format('svg');
+    src: url(rodusround700.otf) format('opentype'),
+         url(rodusround700-webfont.woff) format('woff'),
+         url(rodusround700-webfont.eot) format('embedded-opentype'),
+         url(rodusround700-webfont.svg) format('svg');
 }
 @font-face {
     font-family: 'RODUSround500';
-    src: url(RODUS/rodusround500.otf) format('opentype'),
-         url(RODUS/rodusround500-webfont.woff) format('woff'),
-         url(RODUS/rodusround500-webfont.eot) format('embedded-opentype'),
-         url(RODUS/rodusround500-webfont.svg) format('svg');
+    src: url(rodusround500.otf) format('opentype'),
+         url(rodusround500-webfont.woff) format('woff'),
+         url(rodusround500-webfont.eot) format('embedded-opentype'),
+         url(rodusround500-webfont.svg) format('svg');
 }
 @import url('http://fonts.googleapis.com/css?family=Bitter');
+@import url('http://fonts.googleapis.com/css?family=Aldrich');

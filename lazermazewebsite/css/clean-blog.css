@@ -22,7 +22,7 @@
     src: url(fonts/DINOT/DINOT.otf);
 }*/
 
-/*@import url('http://fonts.googleapis.com/css?family=Bitter');*/
+@import url('http://fonts.googleapis.com/css?family=Bitter');
 
 @import url('/fonts/fonts.css');
 
@@ -43,7 +43,8 @@ h4,
 h5,
 h6 {
   /*font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-  font-family: RODUSround700;
+  /*font-family: RODUSround700;*/
+  font-family: Bitter, bold;
   font-weight: 800;
   margin-bottom: 0;
 }
@@ -81,7 +82,8 @@ hr.small {
   width: 100%;
   z-index: 3;
   /*font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-  font-family: RODUSround700;
+  /*font-family: RODUSround700;*/
+  font-family: Bitter, bold;
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
@@ -361,7 +363,8 @@ form .row:first-child .floating-label-form-group {
 }
 .btn {
   /*font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-  font-family: RODUSround700;
+  /*font-family: RODUSround700;*/
+  font-family: Bitter, bold;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -386,7 +389,8 @@ form .row:first-child .floating-label-form-group {
 .pager li > a,
 .pager li > span {
   /*font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-  font-family: RODUSround700;
+  /*font-family: RODUSround700;*/
+  font-family: Bitter, bold;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
