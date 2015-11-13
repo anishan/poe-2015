@@ -1,0 +1,6 @@
+If the pi won't ssh:
+
+- username: pi
+- password: raspberry
+- run "ifconfig"
+- ip listed under wlan0
