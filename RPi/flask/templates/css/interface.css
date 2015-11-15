@@ -1,0 +1,44 @@
+@import url('http://fonts.googleapis.com/css?family=Bitter');
+
+body {
+	background-color: #383838;
+	/*background-image: url(img/trigrid20.png);*/
+  	background-position: center center;
+  	background-repeat: no-repeat;
+  	background-attachment: fixed;
+ 	background-size: cover;
+
+  	font-family: Bitter;
+  	font-size: 20px;
+  	color: #404040;
+}
+	p {
+	  line-height: 1.5;
+	  margin: 10px 0;
+	}
+
+	h1,h2,h3,h4,h5,h6 {
+	  font-family: Bitter, bold;
+	  font-weight: 800;
+	  margin-bottom: 0;
+	}
+
+	h1 {
+		font-size: 100px;
+		color: #93C72A;
+	}
+
+	a {
+		text-decoration: none;
+		color: #CDD1C0;
+	}
+
+.container {
+	width: 800px;
+	padding: 50px;
+}
+
+.nextpage {
+	float: right;
+	font-size: 200px;
+}
