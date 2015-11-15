@@ -4,7 +4,7 @@ body {
 	background-color: #383838;
 	/*background-image: url(img/trigrid20.png);*/
   	background-position: center center;
-  	background-repeat: no-repeat;
+  	background-repeat: repeat;
   	background-attachment: fixed;
  	background-size: cover;
 
@@ -12,30 +12,46 @@ body {
   	font-size: 20px;
   	color: #404040;
 }
-	p {
-	  line-height: 1.5;
-	  margin: 10px 0;
-	}
 
-	h1,h2,h3,h4,h5,h6 {
-	  font-family: Bitter, bold;
-	  font-weight: 800;
-	  margin-bottom: 0;
-	}
+p {
+  line-height: 1.5;
+  margin: 10px 0;
+}
 
-	h1 {
-		font-size: 100px;
-		color: #93C72A;
-	}
+h1,h2,h3,h4,h5,h6 {
+  font-family: Bitter, bold;
+  font-weight: 800;
+}
 
-	a {
-		text-decoration: none;
-		color: #CDD1C0;
-	}
+h1 {
+	font-size: 100px;
+	color: #93C72A;
+}
+
+h2 {
+	font-size: 250px;
+	color: #4FA88D;
+	text-align: center;
+	/*vertical-align: top;*/
+}
+
+h2.green {
+	color: #93C72A;
+}
+
+h3 {
+	font-size: 200px;
+	color: #B3B3B3;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #CDD1C0;
+}
 
 .container {
-	width: 800px;
-	padding: 50px;
+	margin: 75px;
 }
 
 .nextpage {
