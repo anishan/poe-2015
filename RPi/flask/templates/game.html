@@ -4,13 +4,161 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="css/interface.css">
     <title>LAZER MAZE</title>
+    <script type="text/javascript">
+    var	clsStopwatch = function() {
+		// Private vars
+		var	startAt	= 0;
+		var	endTime	= 0;
+
+		var	now	= function() {
+				return (new Date()).getTime(); 
+			}; 
+ 
+		// Public methods
+		// Start or resume
+		this.start = function() {
+				startAt	= startAt ? startAt : now();
+			};
+
+		// Stop or pause
+		this.stop = function() {
+				// If running, update elapsed time otherwise keep it
+				endTime	= startAt ? endTime + now() - startAt : endTime;
+				startAt	= 0; // Paused
+			};
+
+		// Reset
+		this.reset = function() {
+				endTime = startAt = 0;
+			};
+
+		// Duration
+		this.time = function() {
+				return endTime + (startAt ? now() - startAt : 0); 
+			};
+	};
+
+	var x = new clsStopwatch();
+	var $time;
+	var clocktimer;
+
+	function pad(num, size) {
+		var s = "0000" + num;
+		return s.substr(s.length - size);
+	}
+
+	function formatTime(time) {
+		var h = m = s = ms = 0;
+		var newTime = '';
+
+		h = Math.floor( time / (60 * 60 * 1000) );
+		time = time % (60 * 60 * 1000);
+		m = Math.floor( time / (60 * 1000) );
+		time = time % (60 * 1000);
+		s = Math.floor( time / 1000 );
+		ms = time % 1000;
+
+		newTime = pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2) + ':' + pad(ms, 3);
+		return newTime;
+	}
+
+	function show() {
+		$time = document.getElementById('time');
+		update();
+	}
+
+	function update() {
+		$time.innerHTML = formatTime(x.time());
+	}
+
+	function start() {
+		clocktimer = setInterval("update()", 1);
+		x.start();
+	}
+
+	function stop() {
+		x.stop();
+		clearInterval(clocktimer);
+	}
+
+	function reset() {
+		stop();
+		x.reset();
+		update();
+	}
+   //  	var timer = function() {
+   //  		var startTime = 0 // time of last start
+   //  		var endTime = 0 // time of last end
+   //  		var now = function() {
+   //  			return (new Date()).getTime)
+   //  		}
+   //  		// start timer
+   //  		this.start = function() {
+   //  			startAt = startAt ? startAt : now();
+   //  		}
+   //  		// stop timer
+   //  		this.stop = function() {
+   //  			endTime = startAt ? endTime + now() - startAt : endTime
+   //  			startAt = 0
+   //  		}
+   //  		this.time = function() {
+   //  			return endTime + (startAt ? now() - startAt : 0)
+   //  		}
+    	
+   //  	var x = new timer()
+   //  	var $time
+   //  	var clocktimer
+
+   //  	function pad(num, size) {
+   //  		var s = "0000" + num
+   //  		return s.substr(s.length - size)
+   //  	}
+
+   //  	function formatTime(time) {
+   //  		var h = m = s = ms = 0
+   //  		var newTime = ''
+
+   //  		h = Math.floor(time / (60*60*1000))
+   //  		time = time % (60*60*1000)
+   //  		m = Math.floor( time / (60 * 1000) );
+			// time = time % (60 * 1000);
+			// s = Math.floor( time / 1000 );
+			// ms = time % 1000;
+
+			// newTime = pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2) + ':' + pad(ms, 3);
+			// return newTime;
+   //  	}
+
+   //  	function show() {
+   //  		$time = document.getElementById('time')
+   //  		update()
+   //  	}
+
+   //  	function update() {
+   //  		$time.innerHTML = formatTime(x.time())
+   //  	}
+
+   //  	function start() {
+   //  		clocktimer = setInterval("update()", 1)
+   //  		x.start()
+   //  	}
+
+   //  	function stop() {
+   //  		x.stop()
+   //  		clearInterval(clocktimer)
+   //  	}
+
+   //  	}
+    </script>
 </head>
 
-<body background="img/trigrid20.png">
+<body background="img/trigrid20.png" onload="show()">
+	<!-- <div>Time: <span id="time"></span></div> -->
 	<div class='container'>
-    	<h3> 00:00:00 </h3>
-    	<p><a href='score.html'><button type="button">STOP</button></a></p>
-		<meta http-equiv="refresh" content="1; url=game.html"/>
+    	<h3 id='time'>  </h3>
+    	<input type="button" value="start" onclick="start();">
+		<input type="button" value="stop" onclick="stop();">
+    	<!-- <p><a href='score.html'><button type="button">STOP</button></a></p> -->
 	</div>
 </body>
  
