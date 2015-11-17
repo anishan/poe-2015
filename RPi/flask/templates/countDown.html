@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+	<link rel="stylesheet" type="text/css" href="css/interface.css">
+    <title>COUNT DOWN</title>
+    <script type="text/javascript">
+	    function timer() {
+	    	var page = ["2","1","GO"]
+	    	var index = 0
+	    	setInterval(function(){
+	    		if (index < page.length) {
+	    			document.getElementById("countdown").innerHTML = page[index]
+	    			index ++
+	    		}
+	    		else {
+	    			window.location.replace('game.html');
+	    		}
+	    	}, 1000)
+	    }
+
+    </script>
+</head>
+ 
+<body background="img/trigrid20.png" onload="timer()">
+	<div class='container'>
+    	<h2 id="countdown"> 3 </h2>
+		<!-- <meta http-equiv="refresh" content="1; url=game.html" /> -->
+	</div>
+</body>
+ 
+</html>
