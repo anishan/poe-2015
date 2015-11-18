@@ -3,31 +3,14 @@
  * Copyright 2014 Start Bootstrap
  * Licensed under Apache 2.0 (https://github.com/IronSummitMedia/startbootstrap/blob/gh-pages/LICENSE)
  */
-/*@font-face {
-    font-family: 'RODUSround700';
-    src: url(fonts/RODUS/rodusround700.otf) format('opentype'),
-         url(fonts/RODUS/rodusround700-webfont.woff) format('woff'),
-         url(fonts/RODUS/rodusround700-webfont.eot) format('embedded-opentype'),
-         url(fonts/RODUS/rodusround700-webfont.svg) format('svg');
-}*/
-/*@font-face {
-    font-family: 'RODUSround500';
-    src: url('../fonts/RODUS/rodusround500.otf') format('opentype'),
-         url('../fonts/RODUS/rodusround500-webfont.woff') format('woff'),
-         url('../fonts/RODUS/rodusround500-webfont.eot') format('embedded-opentype'),
-         url('../fonts/RODUS/rodusround500-webfont.svg') format('svg');
-}*/
-/*@font-face {
-    font-family: DINOT;
-    src: url(fonts/DINOT/DINOT.otf);
-}
 
+@import url(font-awesome.min.css);
 @import url('http://fonts.googleapis.com/css?family=Bitter');
 
 /*@import url('fonts/fonts.css');*/
 
 @font-face {
-    font-family: 'rodusround700bold';
+    font-family: 'rodusround700';
     src: url('rodus/rodusround700-webfont.eot');
     src: url('rodus/rodusround700-webfont.eot?#iefix') format('embedded-opentype'),
          url('rodus/rodusround700-webfont.woff2') format('woff2'),
@@ -40,8 +23,7 @@
 }
 
 body {
-  font-family: RODUSround500;
-  /*font-family: Bitter;*/
+  font-family: Bitter;
   font-size: 20px;
   color: #404040;
 }
@@ -50,8 +32,7 @@ p {
   margin: 10px 0;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: rodusround700bold;
-  /*font-family: Bitter, bold;*/
+  font-family: rodusround700;
   font-weight: 800;
   margin-bottom: 0;
 }
@@ -88,9 +69,7 @@ hr.small {
   left: 0;
   width: 100%;
   z-index: 3;
-  /*font-family: 'Helvetica Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-  /*font-family: RODUSround700;*/
-  font-family: Bitter, bold;
+  font-family: rodusround700;
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
