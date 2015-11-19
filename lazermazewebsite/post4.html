@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UI Sketches</title>
+    <title>!bug, feature</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -67,14 +67,13 @@
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-color:#252A2E; background-image: url('img/trigrid20.png')">
-    <!-- <header class="intro-header" style="background-image: url('img/color_palette.png'); background-repeat:repeat-y"> -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Designing our UI</h1>
-                        <h2 class="subheading">(or, the documentation I should have <br>posted last week...)</h2>
-                        <span class="meta">Posted by Gaby Clarke on November 18, 2015</span>
+                        <h1>“It’s not a bug, <br>it's a feature”</h1>
+                        <h2 class="subheading">Sprint 3 Electrical Update</h2>
+                        <span class="meta">Posted by Anisha Nakagawa on November 18, 2015</span>
                     </div>
                 </div>
             </div>
@@ -86,22 +85,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p> I've been working on the interface for our game control.  We're intending to have the lazer maze activated given user input via a tablet.  The interface will allow a user to select a challenge level, and then will also serve as our game timer, and allow users to save their scores and compare them to the top scores.
-                    </p>
+                    <p> Remember the well-planned circuit diagram from last blog post? Well, like most projects, it turns out that we need to re-design most of it. </p>
 
-                    <p> Below, you can find the UI sketches I made during Sprint 2.  These sketches are currently being implemented.  We're using flask to integrate the systems.
-                    </p>
-                    <hr>
-                    <img class="img-responsive" src="img/interface_sketch_1.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_2.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_3.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_4.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_5.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_6.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_7.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_8.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_9.png" alt="">
-                    <img class="img-responsive" src="img/interface_sketch_10.png" alt="">
+                    <p> We were initially going to turn the lasers on and off with the raspberry pi through an electrical switch. However, we are dealing with 12V and 300mA through the lasers, which is too high of any of the available transistors. We then moved onto testing MOSFETs for the switch - but our stockroom did not carry any of the n-channel MOSFETs that we would need. (We did have p-channel mosfets, but the raspberry pi can’t put out negative voltages). So for now, we’ll be using a large manual switch on the box to control the lasers. This also has the benefit of being an emergency “off” switch in case the electrical system is malfunctioning. So maybe we can turn this bug into a feature. </p>
+
+                    <p> Now onto the photodiodes, which we are using to detect whether the laser beam has been broken. (We were originally going to use photoresistors, but were able to scavenge photodiodes on campus for faster and cheaper testing). Our original plan was to connect the photodiodes  straight to the raspberry pi, but we soon discovered that the output voltages are too small to be differentiated between by the pi. As a result, we’re planning to read the photodiode inputs through the analog read of an Arduino. The Arduino will then analyze the sensor values against a calibration function, and output a digital HIGH or LOW signal to the raspberry pi. Of course, this means that we’ll also have to add in a power supply for the Arduino. </p>
+
+                    <p> We’re also getting a much smaller voltage output from the photodiodes than we were expecting, so we may need to amplify that signal. The amount of amplification will depend on the light conditions inside the large maze, so we will figure out the constants based on testing inside the box. We might use an additional photodiode as a control standard for the threshold between light and dark. </p>
+
+                    <p>We may have to redesign these solutions again. We will definitely need to iterate through more prototypes. And I’m sure we will find ways to turn more bugs into features. </p>
+
                 </div>
             </div>
         </div>
