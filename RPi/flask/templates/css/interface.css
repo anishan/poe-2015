@@ -1,5 +1,17 @@
 @import url('http://fonts.googleapis.com/css?family=Bitter');
 
+@font-face {
+    font-family: 'rodusround700';
+    src: url('rodus/rodusround700-webfont.eot');
+    src: url('rodus/rodusround700-webfont.eot?#iefix') format('embedded-opentype'),
+         url('rodus/rodusround700-webfont.woff2') format('woff2'),
+         url('rodus/rodusround700-webfont.woff') format('woff'),
+         url('rodus/rodusround700-webfont.ttf') format('truetype'),
+         url('rodus/rodusround700-webfont.svg#rodusround700bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
 	background-color: #383838;
 	/*background-image: url(img/trigrid20.png);*/
@@ -19,7 +31,7 @@ p {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: Bitter, bold;
+  font-family: rodusround700;
   font-weight: 800;
 }
 
