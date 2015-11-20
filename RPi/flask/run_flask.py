@@ -1,6 +1,5 @@
 import time
-import flask
-# from flask import Flask, render_template
+from flask import Flask, render_template
 app = Flask(__name__)
 import sqlite3
 from flask import g
@@ -35,10 +34,15 @@ def score():
 	game_time = time.time() - start_time - 7
 	return render_template('score.html', game_time=game_time)
 
+@app.route('/', methods=['POST'])
+def my_form_post():
+	text = request.form['text']
+	processed_text = text.upper()
+	return processed_text
+
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
 	c = conn.cursor()
 	c.execute('''CREATE TABLE times (name, time)''')
-
 
 	app.run()
