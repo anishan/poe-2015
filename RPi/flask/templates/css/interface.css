@@ -53,13 +53,13 @@ h2.green {
 }
 
 h3 {
-	font-size: 200px;
-	color: #B3B3B3;
-	text-align: center;
+  font-size: 100px;
+  color: #CDD1C0;
+  text-align: left;
 }
 
-h3 {
-  font-size: 100px;
+h4 {
+  font-size: 250px;
   color: #CDD1C0;
   text-align: left;
 }
@@ -87,6 +87,16 @@ input.input-box {
   padding-left: 20px;
   font-family: Bitter;
   font-size: 60px;
+}
+
+input.input-submit {
+  width: 100px;
+  height: 100px;
+  background: none;
+  border: none;
+  font-size: 75px;
+  font-family: rodusround700;
+  color: #CDD1C0;
 }
 
 form {
