@@ -43,6 +43,6 @@ def my_form_post():
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
 	c = conn.cursor()
-	c.execute('''CREATE TABLE times (name, time)''')
+	c.execute('''CREATE TABLE IF NOT EXISTS times (name, time)''')
 
 	app.run()
