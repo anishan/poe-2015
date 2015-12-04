@@ -46,7 +46,7 @@ def score():
 # 	game_time = time.time() - start_time - 7
 # 	return render_template('score.html', game_time=game_time)
 
-@app.route('/sendTime', methods['POST'])
+@app.route('/sendTime', methods=['POST'])
 def sendTime():
 	text = request.form['endTime']
 	return text
@@ -62,4 +62,4 @@ if __name__ == "__main__":
 	c = conn.cursor()
 	c.execute('''CREATE TABLE IF NOT EXISTS times (name, time)''')
 
-	app.run()
+	app.run(host='0.0.0.0')
