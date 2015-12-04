@@ -78,7 +78,7 @@
 
 	function stop() {
 		x.stop();
-		clocktimer.innerHTML;
+		// clocktimer.innerHTML;
 		clearInterval(clocktimer);
 		window.location.replace('saveTime.html');
 	}
@@ -91,13 +91,13 @@
     </script>
 </head>
 
-<body background="img/trigrid20.png" onload="show(), start()">
+<body background="../static/img/trigrid20.png" onload="show(), start()">
 	<!-- <div>Time: <span id="time"></span></div> -->
 	<div class='container'>
     	<h4 id='time'>  </h4>
     	<!-- <input type="button" value="start" onclick="start();"> -->
 		<form action='/sendTime' method="post">
-		<input type="button" value="stop" onclick="stop();" name="endTime">
+		<input type="button" value="stop" onclick="stop();">
 		</form>
     	<!-- <p><a href='score.html'><button type="button">STOP</button></a></p> -->
 	</div>
