@@ -46,11 +46,16 @@ def score():
 # 	game_time = time.time() - start_time - 7
 # 	return render_template('score.html', game_time=game_time)
 
-# @app.route('/', methods=['POST'])
-# def my_form_post():
-# 	text = request.form['userName']
-# 	processed_text = text.upper()
-# 	return processed_text
+@app.route('/sendTime', methods['POST'])
+def sendTime():
+	text = request.form['endTime']
+	return text
+
+@app.route('/saveUser', methods=['POST'])
+def saveUser():
+	text = request.form['userName']
+	return text
+# I NEED TO FIGURE OUT HOW TO GET THESE VALUES INTO gameTimeDatabase.db
 
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
