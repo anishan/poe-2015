@@ -48,18 +48,20 @@ def score():
 
 @app.route('/sendTime', methods=['POST'])
 def sendTime():
-	text = request.form['endTime']
-	return text
+	endTime = request.form['endTime']
+	return endTime
 
 @app.route('/saveUser', methods=['POST'])
 def saveUser():
-	text = request.form['userName']
-	return text
+	userName = request.form['userName']
+	return userName
 # I NEED TO FIGURE OUT HOW TO GET THESE VALUES INTO gameTimeDatabase.db
 
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
 	c = conn.cursor()
 	c.execute('''CREATE TABLE IF NOT EXISTS times (name, time)''')
+	c.execute("INSERT INTO times VALUES ('userName','endTime')")
+	conn.commit()
 
 	app.run()
