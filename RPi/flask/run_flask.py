@@ -1,6 +1,5 @@
 import time
-from flask import Flask
-#, render_template
+from flask import Flask, render_template
 app = Flask(__name__)
 import sqlite3
 from flask import g
@@ -37,7 +36,7 @@ def score():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-	text = request.form['text']
+	text = request.form['userName']
 	processed_text = text.upper()
 	return processed_text
 
