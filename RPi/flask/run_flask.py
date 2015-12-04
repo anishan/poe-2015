@@ -1,11 +1,12 @@
-import time
+import os, time, system
 from flask import Flask, render_template
 app = Flask(__name__)
 import sqlite3
 from flask import g
+from pygame import mixer
+import RPi.GPIO as GPIO
 
 start_time = time.time()
-
 
 @app.route('/')
 def main():
