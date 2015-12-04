@@ -19,13 +19,24 @@ def countDown():
 def game():
 	return render_template('game.html')
 
+@app.route('/sendTime', methods=['POST'])
+def sendTime():
+	endTime = request.form['endTime']
+	return endTime
+
 @app.route('/saveTime')
 def saveTime():
 	return render_template('saveTime.html')
 
+@app.route('/saveUser', methods=['POST'])
+def saveUser():
+	userName = request.form['userName']
+	return userName
+
 @app.route('/score')
 def score():
-	return render_template('score.html')
+	cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
+	return render_template('score.html', items = cursor.fetchall())
 
 # @app.route('/countDownPage2')
 # def countDown2():
@@ -45,17 +56,6 @@ def score():
 # def score():
 # 	game_time = time.time() - start_time - 7
 # 	return render_template('score.html', game_time=game_time)
-
-@app.route('/sendTime', methods=['POST'])
-def sendTime():
-	endTime = request.form['endTime']
-	return endTime
-
-@app.route('/saveUser', methods=['POST'])
-def saveUser():
-	userName = request.form['userName']
-	return userName
-# I NEED TO FIGURE OUT HOW TO GET THESE VALUES INTO gameTimeDatabase.db
 
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
