@@ -19,13 +19,14 @@ def countDown():
 def game():
 	return render_template('game.html')
 
-@app.route('/sendTime', methods=['POST'])
-def sendTime():
-	endTime = request.form['endTime']
-	return endTime
+# @app.route('/sendTime', methods=['POST'])
+# def sendTime():
+# 	endTime = request.form['endTime']
+# 	return endTime
 
 @app.route('/saveTime')
 def saveTime():
+	endTime = request.form['endTime']
 	return render_template('saveTime.html')
 
 @app.route('/saveUser', methods=['POST'])
