@@ -2,7 +2,7 @@
 <html lang="en">
  
 <head>
-	<link rel="stylesheet" type="text/css" href="css/interface.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
     <script type="text/javascript">
 	    function countdownTimer() {
@@ -22,7 +22,7 @@
     </script>
 </head>
  
-<body background="img/trigrid20.png" onload="countdownTimer()">
+<body background="../static/img/trigrid20.png" onload="countdownTimer()">
 	<div class='container'>
     	<h2 id="countdown"> 3 </h2>
 		<!-- <meta http-equiv="refresh" content="1; url=game.html" /> -->

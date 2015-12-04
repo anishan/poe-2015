@@ -2,7 +2,7 @@
 <html lang="en">
  
 <head>
-	<link rel="stylesheet" type="text/css" href="css/interface.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
     <script type="text/javascript">
 
@@ -17,7 +17,7 @@
     </script>
 </head>
 
-<body background="img/trigrid20.png">
+<body background="../static/img/trigrid20.png">
 	<div class='container'>
 		<h3>
     	<form action="/" method="post">
