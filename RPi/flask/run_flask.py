@@ -8,8 +8,25 @@ import RPi.GPIO as GPIO
 
 start_time = time.time()
 
+# Define GPIO and pins
+arduino_reset_pin = 21
+pdcontrol_pin = 5
+pd1_pin = 6
+pd2_pin = 13
+pd3_pin = 19
+pd4_pin = 26
+GPIO.setup(arduino_reset_pin, GPIO.OUT)
+GPIO.setup(pdcontrol_pin, GPIO.IN)
+GPIO.setup(pd1_pin, GPIO.IN)
+GPIO.setup(pd2_pin, GPIO.IN)
+GPIO.setup(pd3_pin, GPIO.IN)
+GPIO.setup(pd4_pin, GPIO.IN)
+
 @app.route('/')
 def main():
+	# Reset arduino for calibration
+	GPIO.output(arduino_reset_pin, 0)
+	time.sleep(0.5)
 	return render_template('index.html')
 
 @app.route('/countDown')
@@ -27,25 +44,6 @@ def saveTime():
 @app.route('/score')
 def score():
 	return render_template('score.html')
-
-# @app.route('/countDownPage2')
-# def countDown2():
-# 	return render_template('countDownPage2.html')
-
-# @app.route('/countDownPage3')
-# def countDown3():
-# 	return render_template('countDownPage3.html')
-
-# @app.route('/game')
-# def game():
-# 	game_time = time.time() - start_time - 7
-# 	game_time = round(game_time, 2)
-# 	return render_template('game.html', game_time=game_time)
-
-# @app.route('/score')
-# def score():
-# 	game_time = time.time() - start_time - 7
-# 	return render_template('score.html', game_time=game_time)
 
 @app.route('/sendTime', methods=['POST'])
 def sendTime():
