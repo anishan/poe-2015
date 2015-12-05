@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 
 start_time = time.time()
 
-# Define GPIO and pins
+# Define GPIO pins
 arduino_reset_pin = 21
 pdcontrol_pin = 5
 pd1_pin = 6
