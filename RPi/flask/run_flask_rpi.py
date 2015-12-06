@@ -14,6 +14,7 @@ pd1_pin = 6
 pd2_pin = 13
 pd3_pin = 19
 pd4_pin = 26
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(arduino_reset_pin, GPIO.OUT)
 GPIO.setup(pd1_pin, GPIO.IN)
@@ -41,7 +42,7 @@ def countDown():
 def game():
 	# Check for stop button
 	# Check for 
-	return render_template('game.html')
+	return render_template('game.html', python_function=game_state)
 
 # @app.route('/sendTime', methods=['POST'])
 # def sendTime():
@@ -50,7 +51,7 @@ def game():
 
 @app.route('/saveTime')
 def saveTime():
-	endTime = request.form['endTime']
+	#endTime = request.form['endTime']
 	return render_template('saveTime.html')
 
 @app.route('/saveUser', methods=['POST'])
@@ -63,16 +64,6 @@ def score():
 	cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
 	return render_template('score.html', items = cursor.fetchall())
 
-@app.route('/sendTime', methods=['POST'])
-def sendTime():
-	text = request.form['endTime']
-	return text
-
-@app.route('/saveUser', methods=['POST'])
-def saveUser():
-	text = request.form['userName']
-	return text
-# I NEED TO FIGURE OUT HOW TO GET THESE VALUES INTO gameTimeDatabase.db
 
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
