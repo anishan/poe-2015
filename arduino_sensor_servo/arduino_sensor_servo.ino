@@ -1,21 +1,28 @@
 #include <Servo.h> 
 
+///// Reset arduino with pi at start of each run
+
 // Variables
 // Sensor pins
 int sensorPinControl = A0;
-int sensorPin1 = A1;
-int sensorPin2 = A2;
-int sensorPin3 = A3;
-int sensorPin4 = A4;
+int sensorPins[] = {A1, A2, A3, A4};
+int arrayLength = 1;
 
 // Sensor values
 int controlValue = 0;
-int sensorValue1 = 0;
-int sensorValue2 = 0;
-int sensorValue3 = 0;
-int sensorValue4 = 0;
+int sensorValues[] = {0, 0, 0, 0};
+int sensorValuesHistory[4][10] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+int arrayPosition = 0;
 
-int margin = 0;
+// Sensor calibration values
+int sensorCalibrations[] = {0, 0, 0, 0};
+int margin = 2;
+
+// Broken states
+boolean isBroken[] = {false, false, false, false};
+
+// Timing of last break in milliseconds
+long breakStartTimes[] = {0, 0, 0, 0};
 
 // Servo pins
 int servoPin2 = 9;
@@ -33,16 +40,7 @@ int servoDir2 = 1;
 int servoDir3 = 1;
 
 // Signal Pins
-int signalPin1 = 4;
-int signalPin2 = 5;
-int signalPin3 = 6;
-int signalPin4 = 7;
-
-// Signal Values
-boolean signalValue1 = LOW;
-boolean signalValue2 = LOW;
-boolean signalValue3 = HIGH;
-boolean signalValue4 = HIGH;
+int signalPins[] = {4, 5, 6, 7};
 
 void setup()
 {
@@ -53,66 +51,121 @@ void setup()
   servo3.attach(servoPin3);
   
   // Digital output signals
-  pinMode(signalPin1, OUTPUT);
-  pinMode(signalPin2, OUTPUT);
-  pinMode(signalPin3, OUTPUT);
-  pinMode(signalPin4, OUTPUT);
+  pinMode(signalPins[0], OUTPUT);
+  pinMode(signalPins[1], OUTPUT);
+  pinMode(signalPins[2], OUTPUT);
+  pinMode(signalPins[3], OUTPUT);
   
   // Digital input signals
   pinMode(8, INPUT);
   pinMode(11, INPUT);
   pinMode(12, INPUT);
   pinMode(13, INPUT);
+  
 }
 
 void loop()
 {
   // Read and store values from sensors
   controlValue = analogRead(sensorPinControl);
-  sensorValue1 = analogRead(sensorPin1);
-  sensorValue2 = analogRead(sensorPin2);
-  sensorValue3 = analogRead(sensorPin3);
-  sensorValue4 = analogRead(sensorPin4);
+  // Move to next array position
+  arrayPosition = (arrayPosition + 1) % 10;
+
+  for (int i = 0; i < arrayLength; i++)
+  {
+    sensorValuesHistory[i][arrayPosition] = analogRead(sensorPins[i]);
+    sensorValues[i] = analogRead(sensorPins[i]);//average(sensorValuesHistory[i]);
+  }
+
+  // Calibrate
+  if (millis() < 1000)
+  {
+    for (int i = 0; i < arrayLength; i++)
+    {
+      sensorCalibrations[i] = sensorValues[i];
+    }
+    Serial.print(sensorCalibrations[0]);
+    Serial.print( " , ");
+    Serial.print(sensorCalibrations[1]);
+    Serial.print(" , ");
+    Serial.print(sensorCalibrations[2]);
+    Serial.print(" , ");
+    Serial.println(sensorCalibrations[3]);
+  }
   
   // Print sensor values
   Serial.print("control: ");
   Serial.print(controlValue);
   Serial.print(" sensor1: ");
-  Serial.print(sensorValue1);
+  Serial.print(sensorValues[0]);
   Serial.print(" sensor2: ");
-  Serial.print(sensorValue2);
+  Serial.print(sensorValues[1]);
   Serial.print(" sensor3: ");
-  Serial.print(sensorValue3);
+  Serial.print(sensorValues[2]);
   Serial.print(" sensor4: ");
-  Serial.println(sensorValue4);
-  
-  // Output the appropriate digital signals
-  // true --> high
-  // if the sensor value is less than the control, we output HIGH
-  digitalWrite(signalPin1, (sensorValue1 < controlValue + margin));
-  digitalWrite(signalPin2, (sensorValue2 < controlValue + margin));
-  digitalWrite(signalPin3, (sensorValue3 < controlValue + margin));
-  digitalWrite(signalPin4, (sensorValue4 < controlValue + margin));
-  
-  // Move servos
-//  servoPos2 += servoDir2;
-//  servo2.write(servoPos2);
-//  servoPos3 += servoDir3;
-//  servo3.write(servoPos3);
-//  if ((servoPos2 > 180) || (servoPos2 < 0))
-//  {
-//    servoDir2 *= -1;
-//  }
-//  if ((servoPos3 > 180) || (servoPos3 < 0))
-//  {
-//    servoDir3 *= -1;
-//  }
+  Serial.println(sensorValues[3]);
 
+  for (int i = 0; i < arrayLength; i++)
+  {
+    if (sensorValues[i] < sensorCalibrations[i] - margin) // sensor 1 is broken
+    {
+      if (!isBroken[i] && ((millis() - breakStartTimes[i]) > 1000)) // for the first time && not broken within the last second
+      {
+        Serial.println("broken1");
+        isBroken[i] = true;
+        breakStartTimes[i] = millis();
+        digitalWrite(signalPins[i], HIGH);
+      }
+      else if (isBroken[i]) // is already broken
+      {
+        if ((millis() - breakStartTimes[i]) < 500) // if it has been broken, send a signal for half a second
+        {
+          digitalWrite(signalPins[i], HIGH); // send a high output signal
+        }
+      }
+    }
+    else // the sensor is not broken
+    {
+      isBroken[i] = false;
+      // If more than 1 second has passed since the sensor has been broken
+      // So the the output signal if HIGH for 0.5 seconds
+      if ((millis() - breakStartTimes[i]) > 500) 
+      {
+        digitalWrite(signalPins[i], LOW); // Write low
+      }
+    }
+  }
+//  
+//  // Move servos
+////  servoPos2 += servoDir2;
+////  servo2.write(servoPos2);
+////  servoPos3 += servoDir3;
+////  servo3.write(servoPos3);
+////  if ((servoPos2 > 180) || (servoPos2 < 0))
+////  {
+////    servoDir2 *= -1;
+////  }
+////  if ((servoPos3 > 180) || (servoPos3 < 0))
+////  {
+////    servoDir3 *= -1;
+////  }
+//
   // read in broken
-  if (digitalRead(8) == HIGH || digitalRead(11) == HIGH || digitalRead(12) == HIGH || digitalRead(13) == HIGH)
+  if (digitalRead(8) == HIGH )//|| digitalRead(11) == HIGH || digitalRead(12) == HIGH || digitalRead(13) == HIGH)
   {
     Serial.println("BROKEN !!!!!!!!!!!!!!!!!!!!!!!");
   }
 
-  delay(30);
+}
+
+int average(int array[])
+{
+  int counter = 0;
+  int total = 0;
+  for (int i = 0; i < sizeof(array); i++)
+  {
+    total += array[i];
+    counter++;
+  }
+  return total / counter;
 }
