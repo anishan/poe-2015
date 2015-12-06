@@ -42,6 +42,8 @@ def score():
 	conn = sqlite3.connect('gameTimeDatabase.db')
 	c = conn.cursor()
 	c.execute("INSERT INTO times VALUES (?,?)", to_insert)
+	c.execute("SELECT * FROM times ORDER BY time")
+	c.execute("SELECT TOP 5")
 	conn.commit()
 
 
