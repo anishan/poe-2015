@@ -3,6 +3,8 @@ app = Flask(__name__)
 import sqlite3
 from flask import g
 
+endTime = 0
+
 @app.route('/')
 def main():
 	return render_template('index.html')
@@ -22,7 +24,8 @@ def game():
 
 @app.route('/saveTime') #methods = ['POST']
 def saveTime():
-	# endTime = request.form['endTime']
+	global endTime
+	endTime = request.form['endTime'] # Gaby says that this is a problem
 	return render_template('saveTime.html')
 
 # @app.route('/saveUser', methods=['POST'])
@@ -33,7 +36,15 @@ def saveTime():
 @app.route('/score')
 def score():
 	userName = request.form['userName']
-	cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
+	global endTime
+	to_insert = (userName,endTime,) # because this needs to be a tuple
+	# cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
+	conn = sqlite3.connect('gameTimeDatabase.db')
+	c = conn.cursor()
+	c.execute("INSERT INTO times VALUES (?,?)", to_insert)
+	conn.commit()
+
+
 	return render_template('score.html', items = cursor.fetchall())
 
 
@@ -41,7 +52,7 @@ if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
 	c = conn.cursor()
 	c.execute('''CREATE TABLE IF NOT EXISTS times (name, time)''')
-	c.execute("INSERT INTO times VALUES ('userName','endTime')") # ARE THESE QUOTES CORRECT? OR '''?
+	# c.execute("INSERT INTO times VALUES ('userName','endTime')") # ARE THESE QUOTES CORRECT? OR '''?
 	conn.commit()
 
 	app.run(host='0.0.0.0')
