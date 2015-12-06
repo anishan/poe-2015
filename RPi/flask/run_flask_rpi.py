@@ -1,4 +1,4 @@
-import os, time, system
+import os, time
 from flask import Flask, render_template
 app = Flask(__name__)
 import sqlite3
@@ -10,17 +10,21 @@ start_time = time.time()
 
 # Define GPIO pins
 arduino_reset_pin = 21
-pdcontrol_pin = 5
 pd1_pin = 6
 pd2_pin = 13
 pd3_pin = 19
 pd4_pin = 26
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(arduino_reset_pin, GPIO.OUT)
-GPIO.setup(pdcontrol_pin, GPIO.IN)
 GPIO.setup(pd1_pin, GPIO.IN)
 GPIO.setup(pd2_pin, GPIO.IN)
 GPIO.setup(pd3_pin, GPIO.IN)
 GPIO.setup(pd4_pin, GPIO.IN)
+
+def game_state():
+	# Check if lasers are broken
+	# Check of stop button was pressed
+	print 'game_state call'
 
 @app.route('/')
 def main():
@@ -35,6 +39,8 @@ def countDown():
 
 @app.route('/game')
 def game():
+	# Check for stop button
+	# Check for 
 	return render_template('game.html')
 
 # @app.route('/sendTime', methods=['POST'])
