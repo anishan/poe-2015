@@ -25,13 +25,14 @@ def saveTime():
 	# endTime = request.form['endTime']
 	return render_template('saveTime.html')
 
-@app.route('/saveUser', methods=['POST'])
-def saveUser():
-	userName = request.form['userName']
-	return userName
+# @app.route('/saveUser', methods=['POST'])
+# def saveUser():
+# 	userName = request.form['userName']
+# 	return userName
 
 @app.route('/score')
 def score():
+	userName = request.form['userName']
 	cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
 	return render_template('score.html', items = cursor.fetchall())
 
