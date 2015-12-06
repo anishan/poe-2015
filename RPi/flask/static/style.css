@@ -37,12 +37,12 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h1 {
-	font-size: 100px;
+	font-size: 8vw;
 	color: #93C72A;
 }
 
 h2 {
-	font-size: 250px;
+	font-size: 20vw;
 	color: #4FA88D;
 	text-align: center;
 	/*vertical-align: top;*/
@@ -59,9 +59,10 @@ h3 {
 }
 
 h4 {
-  font-size: 250px;
+  font-size: 18vw;
   color: #CDD1C0;
   text-align: left;
+  margin-left: 10%;
 }
 
 a {

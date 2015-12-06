@@ -22,7 +22,7 @@ def game():
 
 @app.route('/saveTime') #methods = ['POST']
 def saveTime():
-	endTime = request.form['endTime']
+	# endTime = request.form['endTime']
 	return render_template('saveTime.html')
 
 @app.route('/saveUser', methods=['POST'])
