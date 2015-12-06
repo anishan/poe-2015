@@ -6,15 +6,14 @@
 <!-- Olin College of Engineering, 2015 -->
 
 <head>
-	<link rel="stylesheet" type="text/css" href="css/interface.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
 </head>
 
-<body background="img/trigrid20.png">
+<body background="../static/img/trigrid20.png">
 	<div class='container'>
 		<h1>Welcome to the <br> Lazer Maze</h1>
-
-	    <h1><a class='nextpage' href='countDown.html'> >>> </a></h1>
+	    <h1><a class='nextpage' href='/countDown'> >>> </a></h1>
     </div>
 </body>
 

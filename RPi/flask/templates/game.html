@@ -2,7 +2,7 @@
 <html lang="en">
  
 <head>
-	<link rel="stylesheet" type="text/css" href="css/interface.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
     <script type="text/javascript">
     var	clsStopwatch = function() {
@@ -78,8 +78,9 @@
 
 	function stop() {
 		x.stop();
+		// clocktimer.innerHTML;
 		clearInterval(clocktimer);
-		window.location.replace('saveTime.html');
+		window.location.replace('saveTime');
 	}
 
 	// function reset() {
@@ -90,13 +91,12 @@
     </script>
 </head>
 
-<body background="img/trigrid20.png" onload="show(), start()">
-	<!-- <div>Time: <span id="time"></span></div> -->
+<body background="../static/img/trigrid20.png" onload="show(), start()" onclick="stop();">
 	<div class='container'>
-    	<h4 id='time'>  </h4>
-    	<!-- <input type="button" value="start" onclick="start();"> -->
+	<h4 id='time'>  </h4>
+<!-- 		<form action='/saveTime' method="post">
 		<input type="button" value="stop" onclick="stop();">
-    	<!-- <p><a href='score.html'><button type="button">STOP</button></a></p> -->
+		</form> -->
 	</div>
 </body>
  

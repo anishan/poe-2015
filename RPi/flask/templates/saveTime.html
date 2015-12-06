@@ -2,7 +2,7 @@
 <html lang="en">
  
 <head>
-	<link rel="stylesheet" type="text/css" href="css/interface.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
     <script type="text/javascript">
 
@@ -17,10 +17,11 @@
     </script>
 </head>
 
-<body background="img/trigrid20.png">
+<body background="../static/img/trigrid20.png">
 	<div class='container'>
 		<h3>
-    	<form>
+    	<form action="/score">  
+        <!-- method="post"> -->
   		Enter your name:<br>
   			<input type="text" class='input-box' name="name" style="text-transform:uppercase">
   			<input type="submit" class='input-submit' name="my-form" value=">">
