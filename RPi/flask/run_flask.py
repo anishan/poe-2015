@@ -22,10 +22,10 @@ def game():
 # 	endTime = request.form['endTime']
 # 	return endTime
 
-@app.route('/saveTime') #methods = ['POST']
+@app.route('/saveTime', methods = ['POST'])
 def saveTime():
 	global endTime
-	endTime = request.form['endTime'] # Gaby says that this is a problem
+	endTime = request.json
 	return render_template('saveTime.html')
 
 # @app.route('/saveUser', methods=['POST'])
@@ -36,6 +36,7 @@ def saveTime():
 @app.route('/score')
 def score():
 	userName = request.form['userName']
+	# userName = "isfodjkl"
 	global endTime
 	to_insert = (userName,endTime,) # because this needs to be a tuple
 	# cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
