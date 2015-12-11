@@ -39,8 +39,10 @@
 	};
 
 	var x = new clsStopwatch();
-	var $time;
+	var $time = $('#time').val();
+	// var $time = '{"time":"$time"}'; // this needs to be a JSON item
 	var clocktimer;
+
 
 	function shorten(num, size) {
 		var s = "0000" + num;
@@ -78,10 +80,18 @@
 
 	function stop() {
 		x.stop();
+		$.ajax({
+			type: 'post'
+			url:'',
+			dataType = 'json',
+			data: JSON.stringify({'time': time}),
+		})
 		// clocktimer.innerHTML;
 		clearInterval(clocktimer);
 		window.location.replace('saveTime');
 	}
+
+	
 
 	// function reset() {
 	// 	stop();
