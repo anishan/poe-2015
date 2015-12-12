@@ -4,11 +4,15 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+ 	</script>
     <script type="text/javascript">
+    var	startAt	= 0;
+	var	endTime	= 0;
     var	clsStopwatch = function() {
 		// Private vars
-		var	startAt	= 0;
-		var	endTime	= 0;
+		// var	startAt	= 0;
+		// var	endTime	= 0;
 
 		var	now	= function() {
 				return (new Date()).getTime(); 
@@ -36,6 +40,7 @@
 		this.time = function() {
 				return endTime + (startAt ? now() - startAt : 0); 
 			};
+		return endTime;
 	};
 
 	var x = new clsStopwatch();
@@ -77,10 +82,21 @@
 	}
 
 	function stop() {
+		console.log("stopping")
 		x.stop();
-		// clocktimer.innerHTML;
+		finalTime = formatTime(endTime);
+		console.log(finalTime);
+		// $.post( "/saveTime", {
+  //   	javascript_data: endTime 
+		// });
+		$.ajax({
+  			type: "POST",
+  			url: '/saveTime',
+  			data: finalTime,
+		});
 		clearInterval(clocktimer);
-		window.location.replace('saveTime');
+		//window.location.replace('saveTime');
+		// console.log(finalTime);
 	}
 
 	// function reset() {

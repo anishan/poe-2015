@@ -2,6 +2,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 import sqlite3
 from flask import g
+import json
 
 endTime = 0
 
@@ -24,8 +25,10 @@ def game():
 
 @app.route('/saveTime', methods = ['POST'])
 def saveTime():
-	global endTime
-	endTime = request.json
+	# jsdata = request.form['javascript_data']
+	finalTime = request.form['finalTime']
+	finalTime = json.loads(finalTime)[0]
+	# endTime = request.json
 	return render_template('saveTime.html')
 
 # @app.route('/saveUser', methods=['POST'])
