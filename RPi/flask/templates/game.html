@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
@@ -15,9 +15,9 @@
 		// var	endTime	= 0;
 
 		var	now	= function() {
-				return (new Date()).getTime(); 
-			}; 
- 
+				return (new Date()).getTime();
+			};
+
 		// Public methods
 		// Start or resume
 		this.start = function() {
@@ -38,7 +38,7 @@
 
 		// Duration
 		this.time = function() {
-				return endTime + (startAt ? now() - startAt : 0); 
+				return endTime + (startAt ? now() - startAt : 0);
 			};
 		return endTime;
 	};
@@ -87,19 +87,26 @@
 		finalTime = formatTime(endTime);
 		console.log(finalTime);
 		// $.post( "/saveTime", {
-  //   	javascript_data: endTime 
+  //   	javascript_data: endTime
 		// });
+
+        // http://stackoverflow.com/questions/19963647/flask-request-json-to-dict
+
 		$.ajax({
-  			type: "POST",
-  			url: "{{ url_for('saveTime') }}",
-  			data: {"finalTime" : JSON.stringify(finalTime)},
-  			contentType: 'application/json;charset=UTF-8',
-  			error: function(error) {
-                console.log(error);
-            }
+            type: 'POST',
+            url: '/saveTime',
+            data: JSON.stringify(finalTime),
+            contentType: 'application/json;charset=UTF-8',
+            dataType: 'html',
+            success: function(responseData, textStatus, jqXHR) {
+              $("#myform").text(responseData);
+            },
+            error: function (responseData, textStatus, errorThrown) {
+              alert('Error: '+errorThrown + ". Status: "+textStatus);
+        	}
 		});
 		clearInterval(clocktimer);
-		//window.location.replace('saveTime');
+		window.location.href='saveTime';
 		// console.log(finalTime);
 	}
 
@@ -132,17 +139,7 @@
 <body background="../static/img/trigrid20.png" onload="show(), start()" onclick="stop();">
 	<div class='container'>
 	<h4 id='time'>  </h4>
-<!-- 		<form action='/saveTime' method="post">
-		<input type="button" value="stop" onclick="stop();">
-		</form> -->
-<!-- 	<form class="form-signin" action="/signUp" method="post" role="form">
-             <h2 class="form-signin-heading">Please Sign Up </h2>
-             <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
-             <input type="password" name="password" class="form-control" placeholder="Password" required>
- 
-             <button class="btn btn-lg btn-primary btn-block" type="button">Register </button>
-    </form> -->
 	</div>
 </body>
- 
+
 </html>

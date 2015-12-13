@@ -42,6 +42,9 @@ int servoDir3 = 1;
 // Signal Pins
 int signalPins[] = {4, 5, 6, 7};
 
+// Signal from pi
+int piIn = 12;
+
 void setup()
 {
   Serial.begin(9600);
@@ -57,10 +60,10 @@ void setup()
   pinMode(signalPins[3], OUTPUT);
   
   // Digital input signals
-  pinMode(8, INPUT);
-  pinMode(11, INPUT);
-  pinMode(12, INPUT);
-  pinMode(13, INPUT);
+//  pinMode(8, INPUT);
+//  pinMode(11, INPUT);
+  pinMode(piIn, INPUT);
+//  pinMode(13, INPUT);
   
 }
 
@@ -135,26 +138,29 @@ void loop()
       }
     }
   }
-//  
-//  // Move servos
-////  servoPos2 += servoDir2;
-////  servo2.write(servoPos2);
-////  servoPos3 += servoDir3;
-////  servo3.write(servoPos3);
-////  if ((servoPos2 > 180) || (servoPos2 < 0))
-////  {
-////    servoDir2 *= -1;
-////  }
-////  if ((servoPos3 > 180) || (servoPos3 < 0))
-////  {
-////    servoDir3 *= -1;
-////  }
-//
-  // read in broken
-  if (digitalRead(8) == HIGH )//|| digitalRead(11) == HIGH || digitalRead(12) == HIGH || digitalRead(13) == HIGH)
+  
+  // Move servos
+  if (digitalRead(piIn == HIGH))
   {
-    Serial.println("BROKEN !!!!!!!!!!!!!!!!!!!!!!!");
+    servoPos2 += servoDir2;
+    servo2.write(servoPos2);
+    servoPos3 += servoDir3;
+    servo3.write(servoPos3);
+    if ((servoPos2 > 180) || (servoPos2 < 0))
+    {
+      servoDir2 *= -1;
+    }
+    if ((servoPos3 > 180) || (servoPos3 < 0))
+    {
+      servoDir3 *= -1;
+    }
   }
+
+  // read in broken
+//  if (digitalRead(8) == HIGH )//|| digitalRead(11) == HIGH || digitalRead(12) == HIGH || digitalRead(13) == HIGH)
+//  {
+//    Serial.println("BROKEN !!!!!!!!!!!!!!!!!!!!!!!");
+//  }
 
 }
 

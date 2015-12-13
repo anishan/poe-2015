@@ -5,26 +5,17 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
     <script type="text/javascript">
-
-    var name
-    function getName() {
-    	name = document.getElementById('nameInput').value;
-    }
-    function alertName() {
-    	alert(name)
-    }
-
     </script>
 </head>
 
 <body background="../static/img/trigrid20.png">
 	<div class='container'>
 		<h3>
-    	<form action="/score">  
+    	<form action="/score" method="POST">  
         <!-- method="post"> -->
   		Enter your name:<br>
-  			<input type="text" class='input-box' name="name" style="text-transform:uppercase">
-  			<input type="submit" class='input-submit' name="my-form" value=">">
+  			<input type="text" class='input-box' name="userName" style="text-transform:uppercase">
+  			<input type="submit" class='input-submit' name="saveTime" value=">">
 		</form>
 		</h3>
 		<!-- <p>[hit enter to continue]</p> -->
