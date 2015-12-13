@@ -22,7 +22,7 @@ def game():
 # 	endTime = request.form['endTime']
 # 	return endTime
 
-@app.route('/saveTime', methods = ['POST'])
+@app.route('/saveTime', methods=['POST'])
 def saveTime():
 	global endTime
 	endTime = request.json

@@ -39,8 +39,10 @@
 	};
 
 	var x = new clsStopwatch();
-	var $time;
+	var $time = $('#time').val();
+	// var $time = '{"time":"$time"}'; // this needs to be a JSON item
 	var clocktimer;
+
 
 	function shorten(num, size) {
 		var s = "0000" + num;
@@ -78,10 +80,18 @@
 
 	function stop() {
 		x.stop();
+		$.ajax({
+			type: 'post'
+			url:'',
+			dataType = 'json',
+			data: JSON.stringify({'time': time}),
+		})
 		// clocktimer.innerHTML;
 		clearInterval(clocktimer);
 		window.location.replace('saveTime');
 	}
+
+	
 
 	// function reset() {
 	// 	stop();
@@ -93,11 +103,16 @@
 
 <body background="../static/img/trigrid20.png" onload="show(), start()" onclick="stop();">
 	<div class='container'>
+<<<<<<< HEAD
 	<h4 id='time'>  </h4>
 <!-- 		<form action='/saveTime' method="post">
 		<input type="button" value="stop" onclick="stop();">
 		</form> -->
 		<p>{{ python_function() }}</p>
+		<!-- <form action="sendTime.php" method="post"> -->
+			<h4 id='time'>  </h4>
+			<!-- <input type="hidden" name="time" value="$time"> -->
+		<!-- </form> -->
 	</div>
 </body>
  
