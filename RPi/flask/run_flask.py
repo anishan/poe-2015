@@ -37,17 +37,6 @@ def saveTime():
 	# endTime = request.json
 	return render_template('saveTime.html')
 
-# @app.route('/signUpUser', methods=['POST'])
-# def signUpUser():
-#     user =  request.form['username'];
-#     password = request.form['password'];
-#     return json.dumps({'status':'OK','user':user,'pass':password});
-
-# @app.route('/saveUser', methods=['POST'])
-# def saveUser():
-# 	userName = request.form['userName']
-# 	return userName
-
 @app.route('/score')
 def score():
 	userName = request.form['userName']
