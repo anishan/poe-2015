@@ -26,14 +26,17 @@ def game():
 
 @app.route('/saveTime', methods = ['POST'])
 def saveTime():
+	time = request.json
+	print(time)
+
 	# jsdata = request.form['javascript_data']
 	# finalTime = request.form.keys()
-	if request.method == 'POST':
-		finalTime = request.get_json()
-	# finalTime = str(request.method('finalTime'))
-	print finalTime
-	# ['finalTime']
-	finalTime = json.loads(finalTime)[0]
+	# if request.method == 'POST':
+	# 	finalTime = request.get_json()
+	# # finalTime = str(request.method('finalTime'))
+	# print finalTime
+	# # ['finalTime']
+	# finalTime = json.loads(finalTime)[0]
 	# endTime = request.json
 	return render_template('saveTime.html')
 
