@@ -4,11 +4,15 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>LAZER MAZE</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+ 	</script>
     <script type="text/javascript">
+    var	startAt	= 0;
+	var	endTime	= 0;
     var	clsStopwatch = function() {
 		// Private vars
-		var	startAt	= 0;
-		var	endTime	= 0;
+		// var	startAt	= 0;
+		// var	endTime	= 0;
 
 		var	now	= function() {
 				return (new Date()).getTime(); 
@@ -36,6 +40,7 @@
 		this.time = function() {
 				return endTime + (startAt ? now() - startAt : 0); 
 			};
+		return endTime;
 	};
 
 	var x = new clsStopwatch();
@@ -77,11 +82,50 @@
 	}
 
 	function stop() {
+		console.log("stopping")
 		x.stop();
-		// clocktimer.innerHTML;
+		finalTime = formatTime(endTime);
+		console.log(finalTime);
+		// $.post( "/saveTime", {
+  //   	javascript_data: endTime 
+		// });
+		$.ajax({
+  			type: "POST",
+  			url: '/saveTime',
+  			// url: "{{ url_for('saveTime') }}",
+  			// data: finalTime,
+  			data: JSON.stringify({'finalTime' : finalTime}),
+  			// data: {finalTime : JSON.stringify(finalTime)},
+  			contentType: 'application/json;charset=UTF-8',
+  			success: function(response) {
+                console.log(response);
+            },
+  			error: function(error) {
+                console.log(error);
+            }
+		});
 		clearInterval(clocktimer);
-		window.location.replace('saveTime');
+		// window.location.replace('saveTime');
+		// console.log(finalTime);
 	}
+
+// 	$(function() {
+//     $('button').click(function() {
+//         var user = $('#txtUsername').val();
+//         var pass = $('#txtPassword').val();
+//         $.ajax({
+//             url: '/signUpUser',
+//             data: $('form').serialize(),
+//             type: 'POST',
+//             success: function(response) {
+//                 console.log(response);
+//             },
+//             error: function(error) {
+//                 console.log(error);
+//             }
+//         });
+//     });
+// });
 
 	// function reset() {
 	// 	stop();
@@ -97,6 +141,13 @@
 <!-- 		<form action='/saveTime' method="post">
 		<input type="button" value="stop" onclick="stop();">
 		</form> -->
+<!-- 	<form class="form-signin" action="/signUp" method="post" role="form">
+             <h2 class="form-signin-heading">Please Sign Up </h2>
+             <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
+             <input type="password" name="password" class="form-control" placeholder="Password" required>
+ 
+             <button class="btn btn-lg btn-primary btn-block" type="button">Register </button>
+    </form> -->
 	</div>
 </body>
  
