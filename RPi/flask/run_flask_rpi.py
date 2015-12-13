@@ -9,6 +9,8 @@ import RPi.GPIO as GPIO
 endTime = 0
 
 start_time = time.time()
+global added_time
+global n_broken
 
 # Define GPIO pins
 arduino_reset_pin = 21
@@ -27,7 +29,6 @@ GPIO.setup(pd4_pin, GPIO.IN)
 GPIO.setup(stop_button_pin, GPIO.IN)
 
 def game_state():
-	#while(1):
 	# Check if lasers are broken
 	p1 = GPIO.input(pd1_pin)
 	p2 = GPIO.input(pd2_pin)
@@ -37,10 +38,16 @@ def game_state():
 	if 1 in pds:
 		# Play trombone sound
 		os.system('omxplayer -o local sad_trombone.wav')
+		# Add time to the score (currently added at the end)
+		added_time += 30
+		n_broken += 1
 		print 'Laser Broken'
 	# Check if the stop button was pressed
 	if GPIO.input(stop_button_pin) == 1:
-		pass			
+		os.system('omxplayer -o local ta_da.wav')
+
+def end_game():
+	os.system('omxplayer -o local ta_da.wav')			
 
 @app.route('/')
 def main():
@@ -65,7 +72,7 @@ def game():
 @app.route('/saveTime', methods = ['POST'])
 def saveTime():
 	global endTime
-	endTime = request.json
+	endTime = request.json + added_time
 	return render_template('saveTime.html')
 
 # @app.route('/saveUser', methods=['POST'])
