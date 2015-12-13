@@ -6,6 +6,7 @@ from flask import g
 import json
 
 endTime = 0
+userName = ""
 
 @app.route('/')
 def main():
@@ -24,11 +25,14 @@ def game():
 # 	endTime = request.form['endTime']
 # 	return endTime
 
-@app.route('/saveTime', methods = ['POST'])
+@app.route('/saveTime', methods = ['GET', 'POST'])
 def saveTime():
-	time = request.json
-	print time
-
+	if request.method == 'POST':
+		global endTime
+		endTime = request.json
+		print time
+	# else:
+	# 	return render_template('saveTime.html')
 	# jsdata = request.form['javascript_data']
 	# finalTime = request.form.keys()
 	# if request.method == 'POST':
@@ -40,27 +44,32 @@ def saveTime():
 	# endTime = request.json
 	return render_template('saveTime.html')
 
-# @app.route('/saveUser', methods=['POST'])
+# @app.route('/saveUser', methods=['GET','POST'])
 # def saveUser():
-# 	userName = request.form['userName']
-# 	return userName
+# 	if request.method == 'POST':
+# 		global userName
+# 		userName = request.json
+# 		print userName
+# 	return render_template()
 
-@app.route('/score')
+@app.route('/score', methods=['GET','POST'])
 def score():
-	userName = request.form['userName']
-	# userName = "isfodjkl"
-	global endTime
-	to_insert = (userName,endTime,) # because this needs to be a tuple
-	# cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
-	conn = sqlite3.connect('gameTimeDatabase.db')
-	c = conn.cursor()
-	c.execute("INSERT INTO times VALUES (?,?)", to_insert)
-	c.execute("SELECT * FROM times ORDER BY time")
-	c.execute("SELECT TOP 5")
-	conn.commit()
+	if request.method == 'POST':
+		global userName
+		userName = request.form['userName']
+		print userName
+		global endTime
+		# to_insert = (userName,endTime,) # because this needs to be a tuple
+		# # cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
+		# conn = sqlite3.connect('gameTimeDatabase.db')
+		# c = conn.cursor()
+		# c.execute("INSERT INTO times VALUES (?,?)", to_insert)
+		# c.execute("SELECT * FROM times ORDER BY time")
+		# c.execute("SELECT TOP 5")
+		# conn.commit()
 
-
-	return render_template('score.html', items = cursor.fetchall())
+	return render_template('score.html')
+	# , items = cursor.fetchall())
 
 
 if __name__ == "__main__":
