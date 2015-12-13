@@ -24,23 +24,23 @@ GPIO.setup(pd1_pin, GPIO.IN)
 GPIO.setup(pd2_pin, GPIO.IN)
 GPIO.setup(pd3_pin, GPIO.IN)
 GPIO.setup(pd4_pin, GPIO.IN)
-GPIO.setup(stop_button_pin)
+GPIO.setup(stop_button_pin, GPIO.IN)
 
 def game_state():
-	while(1):
-		# Check if lasers are broken
-		p1 = GPIO.input(pd1_pin)
-		p2 = GPIO.input(pd2_pin)
-		p3 = GPIO.input(pd3_pin)
-		p4 = GPIO.input(pd4_pin)
-		pds = [p1, p2, p3, p4]
-		if 1 in pds:
-			# Play trombone sound
-			os.system('omxplayer -o local sad_trombone.wav')
-			print 'Laser Broken'
-		# Check if the stop button was pressed
-		if GPIO.input(stop_button_pin) == 1:
-			
+	#while(1):
+	# Check if lasers are broken
+	p1 = GPIO.input(pd1_pin)
+	p2 = GPIO.input(pd2_pin)
+	p3 = GPIO.input(pd3_pin)
+	p4 = GPIO.input(pd4_pin)
+	pds = [p1, p2, p3, p4]
+	if 1 in pds:
+		# Play trombone sound
+		os.system('omxplayer -o local sad_trombone.wav')
+		print 'Laser Broken'
+	# Check if the stop button was pressed
+	if GPIO.input(stop_button_pin) == 1:
+		pass			
 
 @app.route('/')
 def main():
