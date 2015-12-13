@@ -27,7 +27,7 @@ def game():
 @app.route('/saveTime', methods = ['POST'])
 def saveTime():
 	time = request.json
-	print(time)
+	print time
 
 	# jsdata = request.form['javascript_data']
 	# finalTime = request.form.keys()
@@ -39,12 +39,6 @@ def saveTime():
 	# finalTime = json.loads(finalTime)[0]
 	# endTime = request.json
 	return render_template('saveTime.html')
-
-# @app.route('/signUpUser', methods=['POST'])
-# def signUpUser():
-#     user =  request.form['username'];
-#     password = request.form['password'];
-#     return json.dumps({'status':'OK','user':user,'pass':password});
 
 # @app.route('/saveUser', methods=['POST'])
 # def saveUser():

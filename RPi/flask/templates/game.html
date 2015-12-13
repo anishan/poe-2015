@@ -103,11 +103,10 @@
             },
             error: function (responseData, textStatus, errorThrown) {
               alert('Error: '+errorThrown + ". Status: "+textStatus);
-        }
-
+        	}
 		});
 		clearInterval(clocktimer);
-		// window.location.replace('saveTime');
+		window.location.href='saveTime';
 		// console.log(finalTime);
 	}
 
@@ -140,16 +139,6 @@
 <body background="../static/img/trigrid20.png" onload="show(), start()" onclick="stop();">
 	<div class='container'>
 	<h4 id='time'>  </h4>
-<!-- 		<form action='/saveTime' method="post">
-		<input type="button" value="stop" onclick="stop();">
-		</form> -->
-<!-- 	<form class="form-signin" action="/signUp" method="post" role="form">
-             <h2 class="form-signin-heading">Please Sign Up </h2>
-             <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
-             <input type="password" name="password" class="form-control" placeholder="Password" required>
-
-             <button class="btn btn-lg btn-primary btn-block" type="button">Register </button>
-    </form> -->
 	</div>
 </body>
 
