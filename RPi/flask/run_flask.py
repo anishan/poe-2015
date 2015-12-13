@@ -28,7 +28,9 @@ def game():
 def saveTime():
 	# jsdata = request.form['javascript_data']
 	# finalTime = request.form.keys()
-	finalTime = request.method("finalTime")
+	if request.method == 'POST':
+		finalTime = request.get_json()
+	# finalTime = str(request.method('finalTime'))
 	print finalTime
 	# ['finalTime']
 	finalTime = json.loads(finalTime)[0]
