@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+# from flask import *
 app = Flask(__name__)
 import sqlite3
 from flask import g
@@ -26,10 +27,19 @@ def game():
 @app.route('/saveTime', methods = ['POST'])
 def saveTime():
 	# jsdata = request.form['javascript_data']
-	finalTime = request.form['finalTime']
+	# finalTime = request.form.keys()
+	finalTime = request.method("finalTime")
+	print finalTime
+	# ['finalTime']
 	finalTime = json.loads(finalTime)[0]
 	# endTime = request.json
 	return render_template('saveTime.html')
+
+# @app.route('/signUpUser', methods=['POST'])
+# def signUpUser():
+#     user =  request.form['username'];
+#     password = request.form['password'];
+#     return json.dumps({'status':'OK','user':user,'pass':password});
 
 # @app.route('/saveUser', methods=['POST'])
 # def saveUser():
@@ -61,4 +71,5 @@ if __name__ == "__main__":
 	# c.execute("INSERT INTO times VALUES ('userName','endTime')") # ARE THESE QUOTES CORRECT? OR '''?
 	conn.commit()
 
+	app.debug = True
 	app.run(host='0.0.0.0')
