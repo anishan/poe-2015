@@ -4,19 +4,27 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>SCORE</title>
+    <script type="text/javascript">
+    var times = {{ times }}
+    console.log(times)
+    </script>
 </head>
 
 <body background="../static/img/trigrid20.png">
 	<div class='container'>
-    	<h3> score </h3>
-    	<table>
-		{% for item in times %}
-    	<tr>
-    		<td>time</td>
-    		<td>name</td>
-    	</tr>
-    	{% endfor %}
-    	</table>
+    	<h3> Best times </h3>
+    	<ul>
+		{% for time in times %}
+            <li> {{time}} </li>
+        {% endfor %}
+        </ul>
+        <!-- <table>
+        {% for time in times %}
+            <tr>
+                <td>{{time}}</td>
+            </tr>
+        {% endfor %}
+    	</table> -->
 	</div>
 </body>
  

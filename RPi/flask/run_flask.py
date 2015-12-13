@@ -30,7 +30,7 @@ def saveTime():
 	if request.method == 'POST':
 		global endTime
 		endTime = request.json
-		print time
+		print endTime
 	# else:
 	# 	return render_template('saveTime.html')
 	# jsdata = request.form['javascript_data']
@@ -52,24 +52,30 @@ def saveTime():
 # 		print userName
 # 	return render_template()
 
-@app.route('/score', methods=['GET','POST'])
+@app.route('/score', methods = ['GET','POST'])
 def score():
 	if request.method == 'POST':
 		global userName
 		userName = request.form['userName']
+		userName = userName.upper()
 		print userName
 		global endTime
-		# to_insert = (userName,endTime,) # because this needs to be a tuple
-		# # cursor = gameTimeDatabase.execute('SELECT name,time FROM times')
-		# conn = sqlite3.connect('gameTimeDatabase.db')
-		# c = conn.cursor()
-		# c.execute("INSERT INTO times VALUES (?,?)", to_insert)
-		# c.execute("SELECT * FROM times ORDER BY time")
+		to_insert = (userName,endTime,) # because this needs to be a tuple
+		conn = sqlite3.connect('gameTimeDatabase.db')
+		c = conn.cursor()
+		c.execute("INSERT INTO times VALUES (?,?)", to_insert)
+		conn.commit()
+		allTimes = c.execute("SELECT * FROM times ORDER BY time")
+		conn.commit()
 		# c.execute("SELECT TOP 5")
-		# conn.commit()
+		# print times
+		# for row in times:
+		# 	print row
+		# timeString = "SELECT * FROM times ORDER BY time"
+		# print timeString
+		# pp.print(times)
 
-	return render_template('score.html')
-	# , items = cursor.fetchall())
+	return render_template('score.html', times = allTimes)
 
 
 if __name__ == "__main__":
@@ -80,4 +86,4 @@ if __name__ == "__main__":
 	conn.commit()
 
 	app.debug = True
-	app.run(host='0.0.0.0')
+	app.run(host = '0.0.0.0')
