@@ -555,6 +555,7 @@ span.round-tab {
     border-radius: 100px;
     background: #fff;
     /*border: 2px solid #e0e0e0;*/
+    border: 2px solid transparent;
     z-index: 2;
     position: absolute;
     left: 0;
@@ -563,7 +564,13 @@ span.round-tab {
 }
 span.round-tab i{
     color:#555555;
+    vertical-align: center;
 }
+
+span.round-tab:hover{
+    color: #4FA88D;
+}
+
 .wizard li.active span.round-tab {
     background: #fff;
     border: 2px solid #4FA88D;
@@ -574,8 +581,8 @@ span.round-tab i{
 }
 
 span.round-tab:hover {
-    color: #4FA88D;
     border: 2px solid #333;
+    border-color: #4FA88D;
 }
 
 .wizard .nav-tabs > li {
