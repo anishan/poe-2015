@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>!bug, feature</title>
+    <title>Software Integration</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -74,9 +74,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>“It's not a bug, <br>it's a feature”</h1>
-                        <h2 class="subheading">Sprint 3 Electrical Update</h2>
-                        <span class="meta">Posted by Anisha Nakagawa on November 18, 2015</span>
+                        <h1>Software Integration:<br> A Tale of Many Merge Conflicts</h1>
+                        <h2 class="subheading">(or, my finally finished blog post from two weeks ago!)</h2>
+                        <span class="meta">Posted by Kathryn Hite on December 13, 2015</span>
                     </div>
                 </div>
             </div>
@@ -88,15 +88,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p> Remember the well-planned circuit diagram from last blog post? Well, like most projects, it turns out that we need to re-design most of it. </p>
+                    <p> We’ve been working hard over the past two weeks to get all of our software in place and integrated with the maze hardware.  We also learned a lot about code integration in the process of merging the two main software components of the maze: a Flask-based web interface for user control and python code for the physical lazer maze.<br><br></p>
 
-                    <p> We were initially going to turn the lasers on and off with the raspberry pi through an electrical switch. However, we are dealing with 12V and 300mA through the lasers, which is too high of any of the available transistors. We then moved onto testing MOSFETs for the switch - but our stockroom did not carry any of the n-channel MOSFETs that we would need. (We did have p-channel mosfets, but the raspberry pi can’t put out negative voltages). So for now, we’ll be using a large manual switch on the box to control the lasers. This also has the benefit of being an emergency “off” switch in case the electrical system is malfunctioning. So maybe we can turn this bug into a feature. </p>
+                    <h3> Flask </h3>
+                    <p> Flask is a python web application framework that we are using to host our own html pages.  Users can interact with these pages on a tablet to control the maze.  You can see the design layout for the pages in Gaby’s blog post, and we are currently working to finish implementing the database that will store all of the player names and scores.  Moving between pages is a relatively simple process, but passing data from the html pages into python has been a bit more complicated.  This is our current focus. </p>
 
-                    <p> Now onto the photodiodes, which we are using to detect whether the laser beam has been broken. (We were originally going to use photoresistors, but were able to scavenge photodiodes on campus for faster and cheaper testing). Our original plan was to connect the photodiodes  straight to the raspberry pi, but we soon discovered that the output voltages are too small to be differentiated between by the pi. As a result, we’re planning to read the photodiode inputs through the analog read of an Arduino. The Arduino will then analyze the sensor values against a calibration function, and output a digital HIGH or LOW signal to the raspberry pi. Of course, this means that we’ll also have to add in a power supply for the Arduino. </p>
+                    <h3> Python </h3>
+                    <p> We are running all of the code off of a Raspberry Pi 2 Model B (more on that in a second).  The Pi is connected to an Arduino handling all of the servo control and signal filtering for the photodiodes that detect when lazers are broken, which means the Python code that has to be integrated with the web application can be much simpler.  We originally started developing with a Raspberry Pi Model A (circa 2011) that I own.  Unfortunately the board is very old and angry at this point and did not want to play nicely with the Olin wifi network that we were trying to publish the website over.  After a lot of resetting IP addresses and trying to force the system to work, we eventually bought the latest model of the Pi with the updated firmware, hardware, etc, and now the wifi connects every time.  Yay!  Now that we have a working controller, the integration is almost complete.  The Pi takes in all of the Arduino inputs that signal the state of the game hardware, publishes the web application to be accessed on the user interface tablet, and even plays sounds to a speaker when users break lazers or successfully finish the game. </p>
 
-                    <p> We’re also getting a much smaller voltage output from the photodiodes than we were expecting, so we may need to amplify that signal. The amount of amplification will depend on the light conditions inside the large maze, so we will figure out the constants based on testing inside the box. We might use an additional photodiode as a control standard for the threshold between light and dark. </p>
-
-                    <p>We may have to redesign these solutions again. We will definitely need to iterate through more prototypes. And I’m sure we will find ways to turn more bugs into features. </p>
+                    <h3> Integration </h3>
+                    <p> We learned a lot of integration and version control lessons when putting together the Flask and Python code.  It turns out there are actually better ways to manage merging code in GitHub rather than changing everything manually between two files.  You can also fix merge conflicts without saving your work in a Word document (and thus causing Anisha extreme anguish over your janky version control methods), deleting the entire git folder, and recloning it (although <a href="https://xkcd.com/1597/">xkcd</a> says that this is a perfectly valid approach).  As you can probably tell, we’ve made a lot of progress in integration methods.<p>
 
                 </div>
             </div>

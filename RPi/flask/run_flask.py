@@ -74,6 +74,18 @@ def score():
 		# timeString = "SELECT * FROM times ORDER BY time"
 		# print timeString
 		# pp.print(times)
+		print allTimes
+
+		# def dict_factory(cursor, row):
+  #   		d = {}
+  #   		for idx, col in enumerate(cursor.description):
+  #       		d[col[0]] = row[idx]
+  #   		return d
+
+		# # con = sqlite3.connect(":memory:")
+		# conn.row_factory = dict_factory
+		# c.execute("select 1 as a")
+		# print c.fetchone()["a"]
 
 	return render_template('score.html', times = allTimes)
 
