@@ -5,8 +5,16 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>SCORE</title>
     <script type="text/javascript">
-    var times = {{ times }}
-    console.log(times)
+    var timeTable = {{ times }}
+    // console.log(timeTable)
+
+    // function generateTable() {
+    //     var table = document.createElement("TABLE")
+    //     for each (var time in times) {
+    //         table.insertRow()
+
+    //     }
+    // }
     </script>
 </head>
 
@@ -21,7 +29,7 @@
         <!-- <table>
         {% for time in times %}
             <tr>
-                <td>{{time}}</td>
+                {{time}}
             </tr>
         {% endfor %}
     	</table> -->
