@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Software Integration</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
+<!--     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <!-- <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">LAZER MAZE</a>
+            </div> -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">HOME</a>
+                    </li>
+                    <li>
+                        <a href="blog.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About us</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-color:#252A2E; background-image: url('img/trigrid20.png')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Software Integration:<br> A Tale of Many Merge Conflicts</h1>
+                        <h2 class="subheading">(or, my finally finished blog post from two weeks ago!)</h2>
+                        <span class="meta">Posted by Kathryn Hite on December 13, 2015</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p> We’ve been working hard over the past two weeks to get all of our software in place and integrated with the maze hardware.  We also learned a lot about code integration in the process of merging the two main software components of the maze: a Flask-based web interface for user control and python code for the physical lazer maze.<br><br></p>
+
+                    <h3> Flask </h3>
+                    <p> Flask is a python web application framework that we are using to host our own html pages.  Users can interact with these pages on a tablet to control the maze.  You can see the design layout for the pages in Gaby’s blog post, and we are currently working to finish implementing the database that will store all of the player names and scores.  Moving between pages is a relatively simple process, but passing data from the html pages into python has been a bit more complicated.  This is our current focus. </p>
+
+                    <h3> Python </h3>
+                    <p> We are running all of the code off of a Raspberry Pi 2 Model B (more on that in a second).  The Pi is connected to an Arduino handling all of the servo control and signal filtering for the photodiodes that detect when lazers are broken, which means the Python code that has to be integrated with the web application can be much simpler.  We originally started developing with a Raspberry Pi Model A (circa 2011) that I own.  Unfortunately the board is very old and angry at this point and did not want to play nicely with the Olin wifi network that we were trying to publish the website over.  After a lot of resetting IP addresses and trying to force the system to work, we eventually bought the latest model of the Pi with the updated firmware, hardware, etc, and now the wifi connects every time.  Yay!  Now that we have a working controller, the integration is almost complete.  The Pi takes in all of the Arduino inputs that signal the state of the game hardware, publishes the web application to be accessed on the user interface tablet, and even plays sounds to a speaker when users break lazers or successfully finish the game. </p>
+
+                    <h3> Integration </h3>
+                    <p> We learned a lot of integration and version control lessons when putting together the Flask and Python code.  It turns out there are actually better ways to manage merging code in GitHub rather than changing everything manually between two files.  You can also fix merge conflicts without saving your work in a Word document (and thus causing Anisha extreme anguish over your janky version control methods), deleting the entire git folder, and recloning it (although <a href="https://xkcd.com/1597/">xkcd</a> says that this is a perfectly valid approach).  As you can probably tell, we’ve made a lot of progress in integration methods.</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://github.com/anishan/poe-2015">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+<!--                     <p class="copyright text-muted">Copyright &copy; Your Website 2014</p> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
