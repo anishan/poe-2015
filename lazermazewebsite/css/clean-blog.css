@@ -627,6 +627,7 @@ span.round-tab:hover {
 
     .wizard .nav-tabs > li a:hover {
         background: transparent;
+        cursor: auto;
     }
 
 .wizard .tab-pane {
