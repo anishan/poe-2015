@@ -69,6 +69,7 @@ def game():
 def saveTime():
 	global p
 	p.terminate()
+	#os.system('omxplayer -o local ta_da.wav')
 	if request.method == 'POST':
 		global endTime
 		endTime = request.json
