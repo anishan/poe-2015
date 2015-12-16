@@ -74,7 +74,23 @@ def score():
 		# timeString = "SELECT * FROM times ORDER BY time"
 		# print timeString
 		# pp.print(times)
-		print allTimes
+
+		def from_sqlite_Row_to_dict(list_with_rows):
+	    # '''Turn a list with sqlite3.Row objects into a dictionary'''
+		    d = {} # the dictionary to be filled with the row data and to be returned
+
+		    for i, row in enumerate(list_with_rows): # iterate throw the sqlite3.Row objects            
+		        l = {} # for each Row use a separate list
+		        l['name'] = str(row[0])
+		        l['time'] = str(row[1])
+		        # for col in range(0, len(row)): # copy over the row date (ie. column data) to a list
+		        #     l.append(row[col])
+		        d[i] = l
+		        # d.append(l) # add the list to the dictionary   
+		    return d
+
+		timeDict = from_sqlite_Row_to_dict(allTimes)
+		# print timeDict
 
 		# def dict_factory(cursor, row):
   #   		d = {}
@@ -87,7 +103,7 @@ def score():
 		# c.execute("select 1 as a")
 		# print c.fetchone()["a"]
 
-	return render_template('score.html', times = allTimes)
+	return render_template('score.html', times = timeDict)
 
 
 if __name__ == "__main__":

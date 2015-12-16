@@ -4,32 +4,150 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <title>SCORE</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
     <script type="text/javascript">
-    var timeTable = {{ times }}
+    var timeTable = '{{ times|tojson }}'
     // console.log(timeTable)
 
-    // function generateTable() {
-    //     var table = document.createElement("TABLE")
-    //     for each (var time in times) {
-    //         table.insertRow()
+    // var deUni = timeTable.replace(/&#39;/g, "'")
+    // console.log(deUni)
 
+    var jsonTable = JSON.parse(timeTable)
+    // console.log(jsonTable)
+    for (var i in jsonTable) {
+        if (i < 5) {
+            console.log(jsonTable[i]['name'])
+            console.log(jsonTable[i]['time'])
+        }
+    }
+
+    // Table data -- an array of objects
+    var jsData = new Array( );
+    jsData[0] = {location:"Uruguay", year:1930, winner:"Uruguay", winScore:4, 
+                 loser:"Argentina", losScore:2};
+    jsData[1] = {location:"Italy", year:1934, winner:"Italy", winScore:2, 
+                 loser:"Czechoslovakia", losScore:1};
+    jsData[2] = {location:"France", year:1938, winner:"Italy", winScore:4, 
+                 loser:"Hungary", losScore:2};
+    jsData[3] = {location:"Brazil", year:1950, winner:"Uruguay", winScore:2, 
+                 loser:"Brazil", losScore:1};
+    jsData[4] = {location:"Switzerland", year:1954, winner:"West Germany", winScore:3, 
+                 loser:"Hungary", losScore:2};
+
+    // Draw table from 'jsData' array of objects
+    function drawTable(tbody) {
+        var tr, td;
+        tbody = document.getElementById("tbody");
+        // loop through data source
+        for (var i = 0; i < jsData.length; i++) {
+            tr = tbody.insertRow(tbody.rows.length);
+            td = tr.insertCell(tr.cells.length);
+            td.setAttribute("align", "center");
+            td.innerHTML = jsData[i].year;
+            td = tr.insertCell(tr.cells.length);
+            td.innerHTML = jsData[i].location;
+            td = tr.insertCell(tr.cells.length);
+            td.innerHTML = jsData[i].winner;
+            td = tr.insertCell(tr.cells.length);
+            td.innerHTML = jsData[i].loser;
+            td = tr.insertCell(tr.cells.length);
+            td.setAttribute("align", "center");
+            td.innerHTML = jsData[i].winScore + " - " + jsData[i].losScore;
+        }
+    }
+
+
+//     function tableCreate(){
+//     var body = document.body,
+//         tbl  = document.createElement('table');
+//     tbl.style.width  = '100px';
+//     // tbl.style.border = '1px solid black';
+
+//     for(var i = 0; i < 5; i++){
+//         var tr = tbl.insertRow();
+
+//         for(var j = 0; j < 2; j++){
+//             var td = tr.insertCell();
+//             td.appendChild(document.createTextNode('Cell'));
+//             td.style.border = '1px solid black';
+//         }
+//     }
+//     body.appendChild(tbl);
+// }
+// tableCreate();
+
+    // function drawTable(jsonTable) {
+    //     // for (var i = 1; i < jsonTable.length; i++) {
+    //     //     drawRow(jsonTable[i]);
+    //     // }
+    //     for (var i in jsonTable) {
+    //         if (i < 5) {
+    //             drawRow(jsonTable[i]);
+    //         }
     //     }
     // }
+
+    // function drawRow(rowData) {
+    //     var row = $("<tr />")
+    //     $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+    //     row.append($("<td>" + rowData.name + "</td>"));
+    //     row.append($("<td>" + rowData.time + "</td>"));
+    // }
+
+    // var data = {"data":[{ "id":"1", "firstName":"Peter", "lastName":"Jhons"}]}
+
+    // function drawTable(data) {
+    //     for (var i = 0; i < data.length; i++) {
+    //         drawRow(data[i]);
+    //     }
+    // }
+
+    // function drawRow(rowData) {
+    //     var row = $("<tr />")
+    //     $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+    //     row.append($("<td>" + rowData.id + "</td>"));
+    //     row.append($("<td>" + rowData.firstName + "</td>"));
+    //     row.append($("<td>" + rowData.lastName + "</td>"));
+    // }
+
+    // drawTable(data)
+
     </script>
 </head>
 
-<body background="../static/img/trigrid20.png">
+<body background="../static/img/trigrid20.png" onload="drawTable()">
+<!-- onload="tableCreate()" -->
 	<div class='container'>
     	<h3> Best times </h3>
-    	<ul>
-		{% for time in times %}
-            <li> {{time}} </li>
-        {% endfor %}
-        </ul>
-        <!-- <table>
+<!--         <table id="personDataTable">
+            <tr>
+                <th>time</th>
+                <th>name</th>
+            </tr>
+        </table> -->
+        <table id="cupFinals">
+            <thead>
+            <tr><th>Year</th>
+                <th>Host Country</th>
+                <th>Winner</th>
+                <th>Loser</th>
+                <th>Score (Win - Lose)</th>
+            </tr>
+            </thead>
+            <tbody id="matchData"></tbody>
+        </table>
+<!--         <table id="personDataTable">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </table> -->
+<!--         <table>
         {% for time in times %}
             <tr>
-                {{time}}
+                <td> {{time}} </td>
             </tr>
         {% endfor %}
     	</table> -->
