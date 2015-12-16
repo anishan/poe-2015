@@ -13,7 +13,8 @@ global added_time
 global n_broken
 
 # Define GPIO pins
-arduino_reset_pin = 21
+arduino_reset_pin = 12
+servo_control_pin = 21
 pd1_pin = 6
 pd2_pin = 13
 pd3_pin = 19
@@ -22,6 +23,7 @@ stop_button_pin = 12
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(arduino_reset_pin, GPIO.OUT)
+GPIO.setup(servo_control_pin, GPIO.OUT)
 GPIO.setup(pd1_pin, GPIO.IN)
 GPIO.setup(pd2_pin, GPIO.IN)
 GPIO.setup(pd3_pin, GPIO.IN)
@@ -48,6 +50,9 @@ def game_state():
 
 def end_game():
 	os.system('omxplayer -o local ta_da.wav')			
+
+def change_level():
+	GPIO.output(servo_control_pin, GPIO.HIGH)
 
 @app.route('/')
 def main():
