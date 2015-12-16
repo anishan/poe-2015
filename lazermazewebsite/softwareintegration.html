@@ -97,8 +97,13 @@
                     <p> We are running all of the code off of a Raspberry Pi 2 Model B (more on that in a second).  The Pi is connected to an Arduino handling all of the servo control and signal filtering for the photodiodes that detect when lazers are broken, which means the Python code that has to be integrated with the web application can be much simpler.  We originally started developing with a Raspberry Pi Model A (circa 2011) that I own.  Unfortunately the board is very old and angry at this point and did not want to play nicely with the Olin wifi network that we were trying to publish the website over.  After a lot of resetting IP addresses and trying to force the system to work, we eventually bought the latest model of the Pi with the updated firmware, hardware, etc, and now the wifi connects every time.  Yay!  Now that we have a working controller, the integration is almost complete.  The Pi takes in all of the Arduino inputs that signal the state of the game hardware, publishes the web application to be accessed on the user interface tablet, and even plays sounds to a speaker when users break lazers or successfully finish the game. </p>
 
                     <h3> Integration </h3>
-                    <p> We learned a lot of integration and version control lessons when putting together the Flask and Python code.  It turns out there are actually better ways to manage merging code in GitHub rather than changing everything manually between two files.  You can also fix merge conflicts without saving your work in a Word document (and thus causing Anisha extreme anguish over your janky version control methods), deleting the entire git folder, and recloning it (although <a href="https://xkcd.com/1597/">xkcd</a> says that this is a perfectly valid approach).  As you can probably tell, we’ve made a lot of progress in integration methods.</p>
+                    <p> We learned a lot of integration and version control lessons when putting together the Flask and Python code.  It turns out there are actually better ways to manage merging code in GitHub rather than changing everything manually between two files.  You can also fix merge conflicts without saving your work in a Word document (and thus causing Anisha extreme anguish over your janky version control methods), deleting the entire git folder, and recloning it (although xkcd says that this is a perfectly valid approach).  As you can probably tell, we’ve made a lot of progress in integration methods.<br><br></p>
 
+                    <div align="center">
+                        <img class="img-responsive" src="http://imgs.xkcd.com/comics/git.png " alt="" align="center" href="https://xkcd.com/1597/">
+                        <span class="caption text-muted">from <a href="https://xkcd.com/1597/">xkcd</a></span>
+                    </div>
+                    
                 </div>
             </div>
         </div>
