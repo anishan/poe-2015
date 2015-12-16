@@ -40,6 +40,7 @@ def game_state():
 		p3 = GPIO.input(pd3_pin)
 		p4 = GPIO.input(pd4_pin)
 		pds = [p1, p2, p3, p4]
+		print pds
 		if 1 in pds:
 			# Play sad trombone sound
 			os.system('omxplayer -o local sad_trombone.wav')
@@ -60,6 +61,8 @@ def countDown():
 
 @app.route('/game')
 def game():
+	GPIO.output(servo_control_pin, GPIO.HIGH)
+	print "game"
 	global p
 	p = multiprocessing.Process(target=game_state, args = ())
 	p.start()
@@ -67,10 +70,11 @@ def game():
 
 @app.route('/saveTime', methods = ['GET', 'POST'])
 def saveTime():
+	print "save time"
 	global p
-	p.terminate()
-	#os.system('omxplayer -o local ta_da.wav')
 	if request.method == 'POST':
+		p.terminate()
+		os.system('omxplayer -o local ta_da.wav')
 		global endTime
 		endTime = request.json
 		print endTime
@@ -78,14 +82,15 @@ def saveTime():
 
 @app.route('/score', methods = ['GET','POST'])
 def score():
+	print 'score'
 	if request.method == 'POST':
 		global userName
 		userName = request.form['userName']
 		userName = userName.upper()
 		print userName
 		global endTime
-		global foul_time
-		to_insert = (userName,endTime + foul_time,) # because this needs to be a tuple
+		#global foul_time
+		to_insert = (userName, endTime,) # because this needs to be a tuple
 		conn = sqlite3.connect('gameTimeDatabase.db')
 		c = conn.cursor()
 		c.execute("INSERT INTO times VALUES (?,?)", to_insert)
@@ -115,5 +120,5 @@ if __name__ == "__main__":
 	c.execute('''CREATE TABLE IF NOT EXISTS times (name, time)''')
 	conn.commit()
 
-	# app.debug = True
+#	app.debug = True
 	app.run(host = '0.0.0.0')
