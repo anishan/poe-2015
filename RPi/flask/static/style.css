@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Bitter');
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300")
 
 @font-face {
     font-family: 'rodusround700';
@@ -20,7 +20,7 @@ body {
   	background-attachment: fixed;
  	background-size: cover;
 
-  	font-family: Bitter;
+  	font-family: Source Sans Pro;
   	font-size: 20px;
   	color: #404040;
 }
@@ -56,6 +56,7 @@ h3 {
   font-size: 100px;
   color: #CDD1C0;
   text-align: left;
+  margin-bottom: .5em;
 }
 
 h4 {
@@ -63,6 +64,14 @@ h4 {
   color: #CDD1C0;
   text-align: left;
   margin-left: 10%;
+}
+
+h5 {
+  font-size: 4vw;
+  color: #CDD1C0;
+  text-align: right;
+  /*margin-right: 5%;*/
+  margin-top: 1vw;
 }
 
 a {
@@ -86,7 +95,7 @@ input.input-box {
   width: 900px;
   height: 100px;
   padding-left: 20px;
-  font-family: Bitter;
+  font-family: rodusround700;
   font-size: 60px;
 }
 
@@ -102,5 +111,16 @@ input.input-submit {
 
 form {
   color: #CDD1C0;
+}
+
+table {
+  color: #93C72A;
+  font-family: rodusround700;
+  font-size: 2em;
+}
+
+td {
+  padding-right: 50px;
+  padding-bottom: 10px;
 }
 

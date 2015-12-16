@@ -104,5 +104,5 @@ if __name__ == "__main__":
 	c.execute('''CREATE TABLE IF NOT EXISTS times (name, time)''')
 	conn.commit()
 
-	app.debug = True
+	# app.debug = True
 	app.run(host = '0.0.0.0')
