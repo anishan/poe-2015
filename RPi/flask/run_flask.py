@@ -1,4 +1,5 @@
 import os, time
+import multiprocessing
 from flask import Flask, render_template, request
 # from flask import *
 app = Flask(__name__)
@@ -11,6 +12,7 @@ import RPi.GPIO as GPIO
 endTime = 0
 foul_time = 0
 userName = ""
+p = None
 
 # Define GPIO pins 
 arduino_reset_pin = 12
@@ -30,17 +32,20 @@ GPIO.setup(pd3_pin, GPIO.IN)
 GPIO.setup(pd4_pin, GPIO.IN)
 
 def game_state():
-	# Check for broken lazers
-	p1 = GPIO.input(pd1_pin)
-	p2 = GPIO.input(pd2_pin)
-	p3 = GPIO.input(pd3_pin)
-	p4 = GPIO.input(pd4_pin)
-	pds = [p1, p2, p3, p4]
-	if 1 in pds:
-		# Play sad trombone sound
-		os.system('omxplayer -o local sad_trombone.wav')
-		# Add time to the score
-		foul_time += 30
+	while(1):
+		print 'Thread run'
+		# Check for broken lazers
+		p1 = GPIO.input(pd1_pin)
+		p2 = GPIO.input(pd2_pin)
+		p3 = GPIO.input(pd3_pin)
+		p4 = GPIO.input(pd4_pin)
+		pds = [p1, p2, p3, p4]
+		if 1 in pds:
+			# Play sad trombone sound
+			os.system('omxplayer -o local sad_trombone.wav')
+			# Add time to the score
+			global foul_time
+			foul_time += 30
 
 @app.route('/')
 def main():
@@ -55,10 +60,15 @@ def countDown():
 
 @app.route('/game')
 def game():
+	global p
+	p = multiprocessing.Process(target=game_state, args = ())
+	p.start()
 	return render_template('game.html')
 
 @app.route('/saveTime', methods = ['GET', 'POST'])
 def saveTime():
+	global p
+	p.terminate()
 	if request.method == 'POST':
 		global endTime
 		endTime = request.json
