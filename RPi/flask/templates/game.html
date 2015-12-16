@@ -101,9 +101,9 @@
             success: function(responseData, textStatus, jqXHR) {
               $("#myform").text(responseData);
             },
-            error: function (responseData, textStatus, errorThrown) {
-              alert('Error: '+errorThrown + ". Status: "+textStatus);
-        	}
+            // error: function (responseData, textStatus, errorThrown) {
+            //   alert('Error: '+errorThrown + ". Status: "+textStatus);
+        	// }
 		});
 		clearInterval(clocktimer);
 		window.location.href='saveTime';
