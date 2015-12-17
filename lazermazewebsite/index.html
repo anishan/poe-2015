@@ -167,12 +167,7 @@
 			                    <div class="tab-pane" role="tabpanel" id="mechanical">
 			                        <h3>MECHANICAL SUBSYSTEM</h3>
 
-			                        <p><i>"A detailed description of your mechanical design (CAD images/renderings are appropriate) and any necessary analysis."</i></p>
-
-                                    <ul>
-                                        <li>modularity</li>
-                                        <li>dimensions</li>
-                                    </ul>
+			                        <p>The mechanical system consists of 4 main components; the PVC frame, the cardboard walls, the mirrors and the lasers. The PVC frame is a 8’x7’x5’ box, with vertical supports on the left and right sides. The supports also act as attachment points for the cardboard walls. The 10 sheets of ¾” cardboard are connected to the PVC with loops of Velcro, making for easy removal and storage. The walls also make it easy to cut openings for the lasers beams to come out of. There are 4 lasers, two of which are mounted on servos so they can move vertically, increasing the difficulty of the maze. The wiring for the lasers and sensors fits in between the double sheets of cardboard that make up each wall, making for easy storage. In order to get an increased number of beams without increasing the number of lasers, we mounted mirrors at different angles on the walls. The mounts are 3D printed to specific angles, to make the best pattern of laser beams to improve gameplay. The angled mirrors cause the beams to bounce back and forth across the box, creating the maze. We use a fog machine to create the particulates in the air needed to make the lasers visible. </p>
 
 			                        <br>
 			                    </div>
@@ -222,6 +217,7 @@
 
                                     <p>Our project has firmware running on both the Arduino and Raspberry Pi. The primary function of the Arduino is to read in the analog values of the sensor readings and control the servos. The Raspberry Pi controls the main game play by using python to broadcast a web-app on its server. The Pi also reads in the signals from the Arduino, to update the game state when lasers are broken.</p>
 
+                                    <br>
                 					<h4>Arduino - Sensor Readings</h4>
 
                                     <p>Since the Raspberry Pi cannot take in analog inputs, the Arduino analyzes the analog input from the sensors and puts out a simple high/low value depending on whether the laser has been broken. The Arduino continuously reads in sensor values from each of the photodiodes through different analog pins. A laser is considered broken if the voltage reading from the sensor drops below a certain threshold voltage. However, the threshold voltage is dependent on which laser is being measured (because there are irregularities in laser brightness), and also dependent on the environmental light conditions. Therefore, the threshold values are re-calibrated at the beginning of each game based on the readings of each sensor while the lasers are all unbroken. Once the sensor value drops below the calibration value by more than a certain margin (a hard-coded variable), the Arduino register a "break" in the laser.</p>
@@ -230,6 +226,7 @@
 
                                     <p>Once the Arduino detects that a laser has been broken, it sends a high voltage signal to the Raspberry Pi through the corresponding digital out pin. The Arduino will send a high signal for at least half a second after the laser is broken, and will continue to put out a high voltage if a laser is broken for an extended period of time. This is because the Pi only samples for a signal at intervals of approximately 0.25 seconds, so the output voltage must be high for long enough for the Pi to detect the break. </p>
 
+                                    <br>
                                     <h4>Arduino - Servo Control</h4>
 
                                     <p>The Arduino also controls the servos, because the Arduino receives enough excess current from the voltage regulator to drive them, while the Raspberry Pi is already using close to its maximum current. The servos sweep through a pre-defined range of positions such that they follow the strip of retroreflective tape on the opposite wall. Because the servos must change position once every loop iteration, the sweeping cannot be done in a for-loop because this would pause all sensor readings for the duration of the sweep. Instead, the servos change position with a global variable that tracks and increments the servo position with each loop iteration. In order to have the servos controlled by the Raspberry Pi, the servos only run a continuous sweep if they receive a high digital input from the Pi.</p>
@@ -239,12 +236,12 @@
 			                    </div>
 			                    <div class="tab-pane" role="tabpanel" id="software">
 			                        <h3> SOFTWARE SUBSYSTEM </h3>
-
-					                <p><i>"A detailed description of software design with links to complete source code (github or other repository is helpful). Please be sure to include a list of all external software dependencies (eg. OpenCV, Google Voice API, etc.)."</i></p>
-
-					                <p> We used <a href="http://flask.pocoo.org/docs/0.10/">Flask</a> to generate a web app that initiates the gameplay, keeps track of and displays the play time, and stores and displays the best times for completion of the Lazer Maze.</p>
-
-                                    <p>Our time database is constructed using <a href="https://www.sqlite.org/index.html">SQLite3</a>, and the website appearance is creating using HTML, CSS, and JavaScript.</p>
+                                    <br>
+                                    <h4>Flask</h4>
+                                    <p>We used <a href="http://flask.pocoo.org/docs/0.10/">Flask</a> to generate a web app published from the Raspberry Pi that initiates the gameplay, keeps track of and displays the play time, and stores and displays the best times for completion of the Lazer Maze.  The Flask framework sends and receives information to and from the html interface, allowing us to get user input for the game such as when to start the maze and what name to associate with the player’s score.  We also used the Python multiprocessing library to create separate processes managing the python game control that checks for broken lasers and plays sound output.  This allows the game control to run in the background checking for Arduino input and playing sounds without freezing web app features such as the JavaScript timer.  The website appearance is creating using HTML, CSS, and JavaScript.</p>
+                                    <br>
+                                    <h4>Database</h4>
+                                    <p>Our time database is constructed using <a href="https://www.sqlite.org/index.html">SQLite3</a> to store all of our player’s names and scores. Each time the main python script is run, it opens up a database with the saved values, or creates a new database file if none exists. The web-app keeps track of the player’s name (entered through a form) and the player’s time. These two variables are then passed into the main python file, where they are written into the SQL database.</p>
 
 					                <p> Access our GitHub repo <a href="https://github.com/anishan/poe-2015">here</a>.</p>
 					                <br>
