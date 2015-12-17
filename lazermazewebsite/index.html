@@ -222,7 +222,15 @@
 
                 					<p><i>"A detailed description of the firmware design with links to complete source code (github or other repository is helpful)."</i></p>
 
-                					<p> Yay, Arduino.</p>
+                                    <p>Our project has firmware running on both the Arduino and Raspberry Pi. The primary funtion of the Arduino is to read in the analog values of the sensor readings and control the servos. The Raspberry Pi controls the main game play by using python to broadcast a web-app on its server. The Pi also reads in the signals from the Arduino, to update the game state when lasers are broken.</p>
+
+                					<h4>Arduino - Sensor Readings</h4>
+
+                                    <p>Since the Raspberry Pi cannot take in analog inputs, the Arduino analyzes the analog input from the sensors and puts out a simple high/low value depending on whether the laser has been broken. The Arduino continuously reads in sensor values from each of the photodiodes through different analog pins. A laser is considered broken if the voltage reading from the sensor drops below a certain threshold voltage. However, the threshold voltage is dependent on which laser is being measured (because there are irregularities in laser brightness), and also dependent on the environmental light conditions. Therefore, the threshold values are re-calibrated at the beginning of each game based on the readings of each sensor while the lasers are all unbroken. Once the sensor value drops below the calibration value by more than a certain margin (a hard-coded variable), the Arduino register a "break" in the laser.</p>
+
+                                    <p>Once the Arduino detects that a laser has been broken, it sends a high voltage signal to the Raspberry Pi through the corresponding digital out pin. The Arduino will send a high signal for at least half a second after the laser is broken, and will continue to put out a high voltage if a laser is broken for an extended period of time. This is because the Pi only samples for a signal at intervals of approximately 0.25 seconds, so the output voltage must be high for long enough for the Pi to detect the break. </p>
+
+                                    <h4>Arduino - Servo Control</h4>
 
                 					<p> Access our GitHub repo <a href="https://github.com/anishan/poe-2015"> here</a>.</p>
                 					<br>
