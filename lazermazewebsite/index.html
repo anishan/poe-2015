@@ -29,7 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<!-- 
+<!--
     TABS ARE FROM HERE: http://bootsnipp.com/snippets/featured/form-wizard-using-tabs -->
 
 </head>
@@ -118,7 +118,7 @@
                 <p> Photos / videos</p>
 
 
-                
+
             </div>
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             	<div class="strike2">
@@ -179,10 +179,43 @@
 			                    <div class="tab-pane" role="tabpanel" id="electrical">
 			                        <h3>ELECTRICAL SUBSYSTEM</h3>
 
-			                        <p><i>"A detailed description of electrical design (circuit diagrams are appropriate) and any necessary analysis."</i></p>
+                                    <p>The main electrical components are the lasers, the photodiodes to detect breaks in the lasers, and servos. These are all interfaced with an Arduino Uno and Raspberry Pi B+. You can read more about the Arduino and Raspberry Pi code in the firmware section.</p>
 
-                                    <img class="img-responsive" src="img/PLACEHOLDER.png" alt="">
-			                        <br>
+                                    <h4>Lasers</h4>
+
+                                    <p>Our gameplay is built around the four green laser modules, which are installed along the wall at regular intervals. Each laser requires 2.5V-4.5V and 300mA, so we wired the four lasers in series to our 12V 5A DC power supply. This supplies each of the lasers with 3V, and more than enough current. The lasers are also wired in series with a mechanical push-button as a safety on/off switch, so that they can be controled separatly from the rest of the electronics. A circuit diagram of just the lasers and pushbutton is below:</p>
+
+                                    <img class="img-responsive" src="img/circuit_diagram_lasers.png" alt="laser hookup">
+
+                                    <h4>Photodiodes and Servos</h4>
+
+                                    <p>In order to detect when the laser beam has been broken, we added photodiodes next to each of the lasers. When the laser beam is not broken, it reflects off a piece of retroreflective tape at the end of the beam, which reflects a small circle of scattered light back around the laser. As a result, the photodiode is also lit. However, the scattered light is blocked when the laser beam is obstructed, so the photodiode is dark. Photodiodes produce a current by absorbing photons, so more light on the photodiodes correlates to a higher current and voltage. We read this voltage through the analog input of the arduino, and used the readings to analyze whether the laser beam had been broken. You can read more about this analysis in the firmware section.</p>
+
+                                    <p>Two of our lasers are mounted on servos to add moving beams to the game. The servos are powered and controlled through the Arduino, and move at a fixed rate over a limited range of angles. Both of these parameters are set in the Arduino code. In order to control difficulty, we can control whether or not the servos move based on a digital signal from the Raspberry Pi. When the Arduino recieves a high voltage from the Pi in pin 13, then the Arduino will move the servos.</p>
+
+                                    <p>This part of the circuit diagram shows the connections between the photodiodes, servos, and Arduino.</p>
+
+                                    <img class="img-responsive" src="img/circuit_diagram_servos.png" alt="photodiode, servos, and Arduino hookup">
+
+                                    <h4>Hardware Communication</h4>
+
+                                    <p>We are using both the Arduino and Raspberry Pi as onboard processors, because the Pi is necessary for communication to the web-app, while the Arduino is necessary for analog input readings. Since the main gameplay is controlled through the Pi, we are using hardware connections to communicate between the Arduino and Pi. Since the sensors are an analog input, they must be read through the Arduino. Then, each time the sensors detect that a laser beam has been broken, the Arduino sends a high digital voltage to the Pi. In addition, the Raspberry Pi has a digital output pin to the Arduino to control whether the servos should be moving. The Raspberry Pi is also connected to the reset pin of the Arduino, so that the sensors can be re-calibrated at the beginning of each game. As a dependency of this communication, the ground on the Arduino and Pi must be conencted for a common reference point.</p>
+
+                                    <h4>Power</h4>
+
+                                    <p>In order to make the laser maze a stand-alone module, all the power for the electrical components needed to be supplied through a single wall outlet rather than USB inputs. We used a 12V 5A power supply to convert the wall outlet power to DC, which is necessary for all the electric components. The 12V is used directly for the lasers. However, both the Raspberry Pi and the Arduino need 5V through a micro-USB and USB-B cable respectively. We used 5V voltage regulators to step down the 12V to 5V. The voltage regulators have a maximum amperage of 1.5A, so we needed to use two separate voltage regulators in order to have enough current for both the Arduino and Pi. The Arduino draws between 0.5A and 1A, which is comfortably within the current range of these voltage regulators, and allows enough of a margin us to drive the servos off the Arduino. The Raspberry Pi uses closer to 1.2A, so it is drawing current at the upper range of the voltage regulator. We cut two USB cables to connect the output of the voltage regulators to the power connections on the Pi and Arduino.</p>
+
+                                    <h4>Installation</h4>
+
+                                    <p>The full system circuit diagram (from combining all the previous schematics) is below:</p>
+
+                                    <img class="img-responsive" src="img/circuit_diagram_schem.png" alt="circuit diagram">
+
+                                    <p>We are mounting all of the components in between one of the double walls of the laser maze box. Therefore, we combined all the electrical components onto a single proto board that connects the Raspberry Pi, Arduino, lasers, sensors, and servos. A labelled circuit layout is below.</p>
+
+                                    <img class="img-responsive" src="img/circuit_layout_bb.png" alt="labelled layout diagram">
+
+                                    <br>
 			                    </div>
 			                    <div class="tab-pane" role="tabpanel" id="firmware">
 			                        <h3> FIRMWARE SUBSYSTEM </h3>
@@ -199,7 +232,7 @@
 
 					                <p><i>"A detailed description of software design with links to complete source code (github or other repository is helpful). Please be sure to include a list of all external software dependencies (eg. OpenCV, Google Voice API, etc.)."</i></p>
 
-					                <p> We used <a href="http://flask.pocoo.org/docs/0.10/">Flask</a> to generate a web app that initiates the gameplay, keeps track of and displays the play time, and stores and displays the best times for completion of the Lazer Maze.</p> 
+					                <p> We used <a href="http://flask.pocoo.org/docs/0.10/">Flask</a> to generate a web app that initiates the gameplay, keeps track of and displays the play time, and stores and displays the best times for completion of the Lazer Maze.</p>
 
                                     <p>Our time database is constructed using <a href="https://www.sqlite.org/index.html">SQLite3</a>, and the website appearance is creating using HTML, CSS, and JavaScript.</p>
 
