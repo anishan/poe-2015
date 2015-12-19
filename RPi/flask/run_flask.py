@@ -7,12 +7,14 @@ import sqlite3
 from flask import g
 import json
 import RPi.GPIO as GPIO
+from pygame import mixer
 
 # User information from web gui
 endTime = 0
 foul_time = 0
 userName = ""
 p = None
+process1 = None
 
 # Define GPIO pins 
 arduino_reset_pin = 12
@@ -33,23 +35,41 @@ GPIO.setup(pd4_pin, GPIO.IN)
 
 def game_state():
 	while(1):
-		print 'Thread run'
+		#print 'Thread run'
 		# Check for broken lazers
 		p1 = GPIO.input(pd1_pin)
 		p2 = GPIO.input(pd2_pin)
 		p3 = GPIO.input(pd3_pin)
 		p4 = GPIO.input(pd4_pin)
 		pds = [p1, p2, p3, p4]
-		print pds
+		#print pds
+		#global process1
 		if 1 in pds:
+			print pds
 			# Play sad trombone sound
-			os.system('omxplayer -o local sad_trombone.wav')
+			pds = [0, 0, 0, 0]
+			print 'broken'
+			#global process1
+			#process1 = mutliprocessing.Process(target=play_sound, args = ())
+			#process1.start
+			#os.system('omxplayer -o local sad_trombone.wav')
 			# Add time to the score
+			#sounda = pygame.mixer.Sound('sad_trombone.wav')
+			#sounda.play()
 			global foul_time
 			foul_time += 30
+			pds = [0,0,0,0]
+		#else:
+			#global process1
+			#process1.terminate()
+
+def play_sound():
+	os.system('omxplayer -o local sad_trombone.wav')
 
 @app.route('/')
 def main():
+	#pygame.init()
+	#pygame.mixer.init()
 	return render_template('index.html')
 
 @app.route('/countDown')
@@ -72,8 +92,8 @@ def game():
 def saveTime():
 	print "save time"
 	global p
+	p.terminate()
 	if request.method == 'POST':
-		p.terminate()
 		os.system('omxplayer -o local ta_da.wav')
 		global endTime
 		endTime = request.json
