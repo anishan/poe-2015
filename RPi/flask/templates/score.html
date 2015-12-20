@@ -21,12 +21,12 @@
         var tr, td;
         tbody = document.getElementById("bestTimes");
         // loop through data source
-        for (var i = 1; i < 6; i++) {
+        for (var i = 0; i < 5; i++) {
             tr = tbody.insertRow(tbody.rows.length);
             td = tr.insertCell(tr.cells.length);
             td.setAttribute("align", "center");
             td.setAttribute("style", "color: #4FA88D");
-            td.innerHTML = i;
+            td.innerHTML = i+1;
             td = tr.insertCell(tr.cells.length);
             td.innerHTML = jsonTable[i].time;
             td = tr.insertCell(tr.cells.length);

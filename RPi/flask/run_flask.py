@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os, time
 import multiprocessing
 from flask import Flask, render_template, request
@@ -7,6 +8,7 @@ import sqlite3
 from flask import g
 import json
 import RPi.GPIO as GPIO
+import pygame
 from pygame import mixer
 
 # User information from web gui
@@ -34,6 +36,7 @@ GPIO.setup(pd3_pin, GPIO.IN)
 GPIO.setup(pd4_pin, GPIO.IN)
 
 def game_state():
+	pygame.init()
 	while(1):
 		#print 'Thread run'
 		# Check for broken lazers
@@ -42,12 +45,13 @@ def game_state():
 		p3 = GPIO.input(pd3_pin)
 		p4 = GPIO.input(pd4_pin)
 		pds = [p1, p2, p3, p4]
+		pds = [0, 1, 0, 0]
 		#print pds
 		#global process1
 		if 1 in pds:
 			print pds
 			# Play sad trombone sound
-			pds = [0, 0, 0, 0]
+			#pds = [0, 0, 0, 0]
 			print 'broken'
 			#global process1
 			#process1 = mutliprocessing.Process(target=play_sound, args = ())
@@ -56,9 +60,12 @@ def game_state():
 			# Add time to the score
 			#sounda = pygame.mixer.Sound('sad_trombone.wav')
 			#sounda.play()
+			mixer.music.load('sad_trombone.wav')
+			mixer.music.play(0)
+			time.sleep(4)
 			global foul_time
 			foul_time += 30
-			pds = [0,0,0,0]
+			#pds = [0,0,0,0]
 		#else:
 			#global process1
 			#process1.terminate()
@@ -93,10 +100,14 @@ def saveTime():
 	print "save time"
 	global p
 	p.terminate()
+	print request.method
 	if request.method == 'POST':
 		os.system('omxplayer -o local ta_da.wav')
 		global endTime
+		print 'first'
+		print endTime
 		endTime = request.json
+		print 'second'
 		print endTime
 	return render_template('saveTime.html')
 
@@ -118,21 +129,31 @@ def score():
 		allTimes = c.execute("SELECT * FROM times ORDER BY time")
 		conn.commit()
 
-		def from_sqlite_Row_to_dict(list_with_rows):
+		#def from_sqlite_Row_to_dict(list_with_rows):
 	    # '''Turn a list with sqlite3.Row objects into a dictionary'''
-		    d = {} # the dictionary to be filled with the row data and to be returned
+		 #   d = {} # the dictionary to be filled with the row data and to be returned
 
-		    for i, row in enumerate(list_with_rows): # iterate throw the sqlite3.Row objects            
-		        l = {} # for each Row use a separate list
-		        l['name'] = str(row[0])
-		        l['time'] = str(row[1])
-		        d[i] = l   
-		    return d
+		  #  for i, row in enumerate(list_with_rows): # iterate throw the sqlite3.Row objects            
+		   #     l = {} # for each Row use a separate list
+		    #    l['name'] = str(row[0])
+		     #   l['time'] = str(row[1])
+		      #  d[i] = l   
+		    #return d
 
-		timeDict = from_sqlite_Row_to_dict(allTimes)
+		timeDict = from_sqlite_row_to_dict(allTimes)
 
 	return render_template('score.html', times = timeDict)
 
+def from_sqlite_row_to_dict(list_with_rows):
+	d = {}
+	for i, row in enumerate(list_with_rows):
+		print row
+		l = {}
+		l['name'] = str(row[0])
+		l['time'] = str(row[1])
+		d[i] = l
+	print d
+	return d
 
 if __name__ == "__main__":
 	conn = sqlite3.connect('gameTimeDatabase.db')
