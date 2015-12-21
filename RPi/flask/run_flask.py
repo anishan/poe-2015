@@ -40,12 +40,12 @@ def game_state():
 	while(1):
 		#print 'Thread run'
 		# Check for broken lazers
-		p1 = GPIO.input(pd1_pin)
+		p1 = 0# GPIO.input(pd1_pin)
 		p2 = GPIO.input(pd2_pin)
 		p3 = GPIO.input(pd3_pin)
 		p4 = GPIO.input(pd4_pin)
 		pds = [p1, p2, p3, p4]
-		pds = [0, 1, 0, 0]
+		#pds = [0, 1, 0, 0]
 		#print pds
 		#global process1
 		if 1 in pds:
@@ -53,6 +53,9 @@ def game_state():
 			# Play sad trombone sound
 			#pds = [0, 0, 0, 0]
 			print 'broken'
+			global foul_time
+			foul_time += 30
+			print foul_time
 			#global process1
 			#process1 = mutliprocessing.Process(target=play_sound, args = ())
 			#process1.start
@@ -62,9 +65,9 @@ def game_state():
 			#sounda.play()
 			mixer.music.load('sad_trombone.wav')
 			mixer.music.play(0)
-			time.sleep(4)
-			global foul_time
-			foul_time += 30
+			time.sleep(3.6)
+			#global foul_time
+			#foul_time += 30
 			#pds = [0,0,0,0]
 		#else:
 			#global process1
@@ -120,8 +123,19 @@ def score():
 		userName = userName.upper()
 		print userName
 		global endTime
-		#global foul_time
-		to_insert = (userName, endTime,) # because this needs to be a tuple
+		global foul_time
+		print 'foul time ' + str(foul_time)
+		print 'endtime substring ' + endTime[3:5]
+		total_secs = int(endTime[3:5]) + foul_time
+		print type(total_secs)
+		print 'total secs ' + str(total_secs)
+		secs = total_secs % 60
+		print 'secs ' + str(secs)
+		mins = total_secs / 60
+		print 'mins ' + str(mins)
+		total_time = str(mins) + ':' + str(secs) + ':' + endTime[6:7]
+		print 'total' + total_time
+		to_insert = (userName, total_time,) # because this needs to be a tuple
 		conn = sqlite3.connect('gameTimeDatabase.db')
 		c = conn.cursor()
 		c.execute("INSERT INTO times VALUES (?,?)", to_insert)
